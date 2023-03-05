@@ -1,6 +1,10 @@
+import math
+
 # Token types
 INTEGER = 'INTEGER'
 FLOAT = 'FLOAT'
+FUNCTION = 'FUNCTION'
+ID = 'ID'
 DECIMAL_POINT = 'DECIMAL_POINT'
 PLUS = 'PLUS'
 MINUS = 'MINUS'
@@ -77,19 +81,15 @@ class Lexer:
 
     def get_next_token(self):
         while self.current_char is not None:
-
             if self.current_char.isspace():
                 self.skip_whitespace()
                 continue
 
-            if self.current_char.isdigit() or self.current_char == '.':
+            if self.current_char.isdigit():
                 return self.integer()
 
-            if self.current_char == '/' and self.peek() == '/':
-                return self.floor_divide()
-
-            if self.current_char == '*' and self.peek() == '*':
-                return self.exponentiation()
+            if self.current_char == '.':
+                return self.float()
 
             if self.current_char == '+':
                 self.advance()
@@ -107,9 +107,17 @@ class Lexer:
                 self.advance()
                 return Token(DIVIDE, '/')
 
+            if self.current_char == '//':
+                self.advance()
+                return Token(FLOOR_DIVIDE, '//')
+
             if self.current_char == '%':
                 self.advance()
                 return Token(MODULO, '%')
+
+            if self.current_char == '^':
+                self.advance()
+                return Token(EXPONENTIATION, '^')
 
             if self.current_char == '(':
                 self.advance()
@@ -119,13 +127,36 @@ class Lexer:
                 self.advance()
                 return Token(RPAREN, ')')
 
+            if self.current_char == 's' and self.text[self.pos:self.pos+3] == 'sin':
+                self.advance()
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(ID, 'sin')
+
+            if self.current_char == 'c' and self.text[self.pos:self.pos+3] == 'cos':
+                self.advance()
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(ID, 'cos')
+
+            if self.current_char == 't' and self.text[self.pos:self.pos+3] == 'tan':
+                self.advance()
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(ID, 'tan')
+
             self.error()
 
         return Token(EOF, None)
 
 
-
 class AST:
+    pass
+
+class Node:
     pass
 
 class BinOp(AST):
@@ -140,6 +171,13 @@ class Num(AST):
         self.token = token
         self.value = token.value
 
+class FuncCall(Node):
+    def __init__(self, func, arg):
+        self.func = func
+        self.arg = arg
+    
+    def __repr__(self):
+        return f"{self.func}({self.arg})"
 
 class Parser:
     def __init__(self, lexer):
@@ -149,9 +187,12 @@ class Parser:
     def error(self):
         raise Exception('Invalid syntax')
 
-    def eat(self, token_type):
+    def eat(self, token_type, token_value=None):
         if self.current_token.type == token_type:
-            self.current_token = self.lexer.get_next_token()
+            if token_value is None or self.current_token.value == token_value:
+                self.current_token = self.lexer.get_next_token()
+            else:
+                self.error()
         else:
             self.error()
 
@@ -176,6 +217,13 @@ class Parser:
             self.eat(MODULO)
             node = BinOp(left=node, op=token, right=self.factor())
             return node
+        elif token.type == ID:
+            func_name = self.current_token.value
+            self.eat(ID)
+            self.eat(LPAREN)
+            arg = self.expr()
+            self.eat(RPAREN)
+            return FuncCall(func_name, arg)
         else:
             self.error()
 
@@ -216,8 +264,6 @@ class Parser:
 
         return node
 
-
-
 class Interpreter:
     def __init__(self, parser):
         self.parser = parser
@@ -247,6 +293,15 @@ class Interpreter:
                 return self.visit(node.left) // self.visit(node.right)
             else:
                 raise ValueError(f"Invalid operator type: {node.op.type}")
+        elif isinstance(node, FuncCall):
+            if node.func == 'sin':
+                return math.sin(self.visit(node.arg))
+            elif node.func == 'cos':
+                return math.cos(self.visit(node.arg))
+            elif node.func == 'tan':
+                return math.tan(self.visit(node.arg))
+            else:
+                raise ValueError(f"Invalid function name: {node.func}")
         else:
             raise TypeError("Invalid node type")
 
