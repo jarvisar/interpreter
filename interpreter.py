@@ -148,6 +148,14 @@ class Lexer:
                 self.skip_whitespace()
                 return Token(ID, 'tan')
 
+            if self.current_char == 's' and self.text[self.pos:self.pos+4] == 'sqrt':
+                self.advance()
+                self.advance()
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(ID, 'sqrt')
+
             self.error()
 
         return Token(EOF, None)
@@ -300,6 +308,8 @@ class Interpreter:
                 return math.cos(self.visit(node.arg))
             elif node.func == 'tan':
                 return math.tan(self.visit(node.arg))
+            elif node.func == 'sqrt':
+                return math.sqrt(self.visit(node.arg))
             else:
                 raise ValueError(f"Invalid function name: {node.func}")
         else:
