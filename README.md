@@ -29,15 +29,15 @@ To use the arithmetic interpreter, follow these steps:
 
 1. Clone the repository to your local machine using the following command:
 
-	` git clone https://github.com/yourusername/interpreter.git`
+	`git clone https://github.com/yourusername/interpreter.git`
     
 2. Change directory into the root folder of the cloned repository:
 
-	` cd interpreter`
+	`cd interpreter`
     
 3. Run the main.py file to start the interpreter:
 
-	` python main.py`
+	`python main.py`
     
 4. Once the interpreter is running, you can enter mathematical expressions to evaluate. For example:
 
