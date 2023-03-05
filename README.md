@@ -1,2 +1,2 @@
 # compiler
-Simple Python Compiler
+Simple Python Compiler that currently computes arithmetic expressions.
