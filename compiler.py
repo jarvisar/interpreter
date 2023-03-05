@@ -175,7 +175,7 @@ class Parser:
 				self.eat(EXPONENTIATION)
 			elif token.type == MODULO:
 				self.eat(MODULO)
-				node = BinOp(left=node, op=token, right=self.factor())
+		node = BinOp(left=node, op=token, right=self.factor())
 
 		return node
 
