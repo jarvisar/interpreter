@@ -21,7 +21,7 @@ Currently, it supports addition (+), subtraction (-), multiplication (*), divisi
 
 It also supports several functions, such as sin, cos, tan, and sqrt.
 
-Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. (3 + 4) / 5 outputs 1.4 and 3 + 4 / 5 outputs 3.8.
+Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
 
 ### How to Use
 
