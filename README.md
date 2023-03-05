@@ -1,4 +1,4 @@
-# compiler
+# interpreter
 This application is a basic arithmetic interpreter that takes in mathematical expressions as input and evaluates them. The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression, such as numbers and operators. The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression.
 
 The tree is made up of two types of nodes: Num nodes, which represent individual numbers in the expression, and BinOp nodes, which represent binary operations between two sub-expressions. Each BinOp node has a left child node and a right child node, which can be either Num or BinOp nodes themselves, depending on the complexity of the expression.
