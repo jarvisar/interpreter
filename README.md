@@ -22,3 +22,26 @@ Currently, it supports addition (+), subtraction (-), multiplication (*), divisi
 It also supports several functions, such as sin, cos, tan, and sqrt.
 
 Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. (3 + 4) / 5 outputs 1.4 and 3 + 4 / 5 outputs 3.8.
+
+### How to Use
+
+To use the arithmetic interpreter, follow these steps:
+
+1. Clone the repository to your local machine using the following command:
+
+	` git clone https://github.com/yourusername/interpreter.git`
+    
+2. Change directory into the root folder of the cloned repository:
+
+	` cd interpreter`
+    
+3. Run the main.py file to start the interpreter:
+
+	` python main.py`
+    
+4. Once the interpreter is running, you can enter mathematical expressions to evaluate. For example:
+
+	`>> (2 + 3) * 4`
+    
+    `14`
+     
