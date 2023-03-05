@@ -12,3 +12,7 @@ Finally, the interpret method of the Interpreter class is called, which initiate
 Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, and the use of an interpreter to traverse the tree and compute the final value of the expression.
 
 Can be used as a starting point for a compiler in the future.
+
+Currently supports addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
+
+Works with integers and decimals and supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
