@@ -230,9 +230,6 @@ class Interpreter:
         tree = self.parser.expr()
         return self.visit(tree)
 
-
-
-
 while True:
     text = input("Enter an arithmetic expression: ")
     lexer = Lexer(text)
