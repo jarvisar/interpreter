@@ -23,6 +23,9 @@ class Lexer:
 
     def integer(self):
         result = ''
+        if self.current_char == '-':
+            result += '-'
+            self.advance()
         while self.current_char is not None and self.current_char.isdigit():
             result += self.current_char
             self.advance()
@@ -64,7 +67,7 @@ class Lexer:
                 self.skip_whitespace()
                 continue
 
-            if self.current_char.isdigit():
+            if self.current_char.isdigit() or (self.current_char == '-' and self.peek().isdigit()):
                 return self.integer()
 
             if self.current_char == '.':
@@ -81,8 +84,11 @@ class Lexer:
                 return Token(PLUS, '+')
 
             if self.current_char == '-':
-                self.advance()
-                return Token(MINUS, '-')
+                if self.peek().isdigit():
+                    return self.integer(negative=True)
+                else:
+                    self.advance()
+                    return Token(MINUS, '-')
 
             if self.current_char == '*':
                 self.advance()
@@ -144,4 +150,5 @@ class Lexer:
             self.error()
 
         return Token(EOF, None)
+
 
