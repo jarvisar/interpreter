@@ -4,6 +4,9 @@ PLUS = 'PLUS'
 MINUS = 'MINUS'
 MULTIPLY = 'MULTIPLY'
 DIVIDE = 'DIVIDE'
+MODULO = 'MODULO'
+EXPONENTIATION = 'EXPONENTIATION'
+FLOOR_DIVIDE = 'FLOOR_DIVIDE'
 LPAREN = 'LPAREN'
 RPAREN = 'RPAREN'
 EOF = 'EOF'
@@ -40,6 +43,23 @@ class Lexer:
             self.advance()
         return int(result)
 
+    def peek(self):
+        peek_pos = self.pos + 1
+        if peek_pos > len(self.text) - 1:
+            return None
+        else:
+            return self.text[peek_pos]
+
+    def floor_divide(self):
+        self.advance()
+        self.advance()
+        return Token(FLOOR_DIVIDE, '//')
+
+    def exponentiation(self):
+        self.advance()
+        self.advance()
+        return Token(EXPONENTIATION, '**')
+
     def get_next_token(self):
         while self.current_char is not None:
 
@@ -49,6 +69,12 @@ class Lexer:
 
             if self.current_char.isdigit():
                 return Token(INTEGER, self.integer())
+
+            if self.current_char == '/' and self.peek() == '/':
+                return self.floor_divide()
+
+            if self.current_char == '*' and self.peek() == '*':
+                return self.exponentiation()
 
             if self.current_char == '+':
                 self.advance()
@@ -66,6 +92,10 @@ class Lexer:
                 self.advance()
                 return Token(DIVIDE, '/')
 
+            if self.current_char == '%':
+                self.advance()
+                return Token(MODULO, '%')
+
             if self.current_char == '(':
                 self.advance()
                 return Token(LPAREN, '(')
@@ -78,6 +108,7 @@ class Lexer:
 
         return Token(EOF, None)
 
+
 class AST:
     pass
 
@@ -87,63 +118,82 @@ class BinOp(AST):
         self.token = self.op = op
         self.right = right
 
+
 class Num(AST):
     def __init__(self, token):
         self.token = token
         self.value = token.value
 
+
 class Parser:
-    def __init__(self, lexer):
-        self.lexer = lexer
-        self.current_token = self.lexer.get_next_token()
+	def __init__(self, lexer):
+		self.lexer = lexer
+		self.current_token = self.lexer.get_next_token()
 
-    def error(self):
-        raise Exception('Invalid syntax')
+	def error(self):
+		raise Exception('Invalid syntax')
 
-    def eat(self, token_type):
-        if self.current_token.type == token_type:
-            self.current_token = self.lexer.get_next_token()
-        else:
-            self.error()
+	def eat(self, token_type):
+		if self.current_token.type == token_type:
+			self.current_token = self.lexer.get_next_token()
+		else:
+			self.error()
 
-    def factor(self):
-        token = self.current_token
-        if token.type == INTEGER:
-            self.eat(INTEGER)
-            return Num(token)
-        elif token.type == LPAREN:
-            self.eat(LPAREN)
-            node = self.expr()
-            self.eat(RPAREN)
-            return node
+	def factor(self):
+		token = self.current_token
+		if token.type == INTEGER:
+			self.eat(INTEGER)
+			return Num(token)
+		elif token.type == LPAREN:
+			self.eat(LPAREN)
+			node = self.expr()
+			self.eat(RPAREN)
+			return node
+		elif token.type == EXPONENTIATION:
+			self.eat(EXPONENTIATION)
+			node = self.factor()
+			return BinOp(left=Num(Token(INTEGER, '2')), op=EXPONENTIATION, right=node)
+		elif token.type == MODULO:
+			self.eat(MODULO)
+			node = BinOp(left=node, op=token, right=self.factor())
+			return node
+		else:
+			self.error()
 
-    def term(self):
-        node = self.factor()
+	def term(self):
+		node = self.factor()
 
-        while self.current_token.type in (MULTIPLY, DIVIDE):
-            token = self.current_token
-            if token.type == MULTIPLY:
-                self.eat(MULTIPLY)
-            elif token.type == DIVIDE:
-                self.eat(DIVIDE)
+		while self.current_token.type in (MULTIPLY, DIVIDE, FLOOR_DIVIDE, EXPONENTIATION, MODULO):
+			token = self.current_token
+			if token.type == MULTIPLY:
+				self.eat(MULTIPLY)
+			elif token.type == DIVIDE:
+				self.eat(DIVIDE)
+			elif token.type == FLOOR_DIVIDE:
+				self.eat(FLOOR_DIVIDE)
+			elif token.type == EXPONENTIATION:
+				self.eat(EXPONENTIATION)
+			elif token.type == MODULO:
+				self.eat(MODULO)
+				node = BinOp(left=node, op=token, right=self.factor())
 
-            node = BinOp(left=node, op=token, right=self.factor())
+		return node
 
-        return node
+	def expr(self):
+		node = self.term()
 
-    def expr(self):
-        node = self.term()
+		while self.current_token.type in (PLUS, MINUS):
+			token = self.current_token
+			if token.type == PLUS:
+				self.eat(PLUS)
+			elif token.type == MINUS:
+				self.eat(MINUS)
 
-        while self.current_token.type in (PLUS, MINUS):
-            token = self.current_token
-            if token.type == PLUS:
-                self.eat(PLUS)
-            elif token.type == MINUS:
-                self.eat(MINUS)
+			node = BinOp(left=node, op=token, right=self.term())
 
-            node = BinOp(left=node, op=token, right=self.term())
+		return node
 
-        return node
+
 
 class Interpreter:
     def __init__(self, parser):
@@ -162,10 +212,23 @@ class Interpreter:
                 return self.visit(node.left) * self.visit(node.right)
             elif node.op.type == DIVIDE:
                 return self.visit(node.left) / self.visit(node.right)
+            elif node.op.type == MODULO:
+                return self.visit(node.left) % self.visit(node.right)
+            elif node.op.type == EXPONENTIATION:
+                return self.visit(node.left) ** self.visit(node.right)
+            elif node.op.type == FLOOR_DIVIDE:
+                return self.visit(node.left) // self.visit(node.right)
+            else:
+                raise ValueError(f"Invalid operator type: {node.op.type}")
+        else:
+            raise TypeError("Invalid node type")
 
     def interpret(self):
         tree = self.parser.expr()
         return self.visit(tree)
+
+
+
 
 while True:
     text = input("Enter an arithmetic expression: ")
