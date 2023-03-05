@@ -70,6 +70,12 @@ class Lexer:
             if self.current_char == '.':
                 return self.float()
 
+            if self.current_char == '/' and self.peek() == '/':
+                return self.floor_divide()
+
+            if self.current_char == '*' and self.peek() == '*':
+                return self.exponentiation()
+
             if self.current_char == '+':
                 self.advance()
                 return Token(PLUS, '+')
