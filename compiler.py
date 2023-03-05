@@ -1,5 +1,7 @@
 # Token types
 INTEGER = 'INTEGER'
+FLOAT = 'FLOAT'
+DECIMAL_POINT = 'DECIMAL_POINT'
 PLUS = 'PLUS'
 MINUS = 'MINUS'
 MULTIPLY = 'MULTIPLY'
@@ -41,7 +43,20 @@ class Lexer:
         while self.current_char is not None and self.current_char.isdigit():
             result += self.current_char
             self.advance()
-        return int(result)
+
+        # Check for decimal point
+        if self.current_char == '.':
+            result += self.current_char
+            self.advance()
+
+            # Continue reading digits after decimal point
+            while self.current_char is not None and self.current_char.isdigit():
+                result += self.current_char
+                self.advance()
+
+            return Token(FLOAT, float(result))
+        else:
+            return Token(INTEGER, int(result))
 
     def peek(self):
         peek_pos = self.pos + 1
@@ -67,8 +82,8 @@ class Lexer:
                 self.skip_whitespace()
                 continue
 
-            if self.current_char.isdigit():
-                return Token(INTEGER, self.integer())
+            if self.current_char.isdigit() or self.current_char == '.':
+                return self.integer()
 
             if self.current_char == '/' and self.peek() == '/':
                 return self.floor_divide()
@@ -109,6 +124,7 @@ class Lexer:
         return Token(EOF, None)
 
 
+
 class AST:
     pass
 
@@ -143,6 +159,9 @@ class Parser:
         token = self.current_token
         if token.type == INTEGER:
             self.eat(INTEGER)
+            return Num(token)
+        elif token.type == FLOAT:
+            self.eat(FLOAT)
             return Num(token)
         elif token.type == LPAREN:
             self.eat(LPAREN)
@@ -198,15 +217,20 @@ class Parser:
         return node
 
 
+
 class Interpreter:
     def __init__(self, parser):
         self.parser = parser
 
     def visit(self, node):
         if isinstance(node, Num):
-            return node.value
-
-        if isinstance(node, BinOp):
+            if isinstance(node.value, int):
+                return node.value
+            elif isinstance(node.value, float):
+                return node.value
+            else:
+                raise TypeError(f"Invalid node value: {node.value}")
+        elif isinstance(node, BinOp):
             if node.op.type == PLUS:
                 return self.visit(node.left) + self.visit(node.right)
             elif node.op.type == MINUS:
