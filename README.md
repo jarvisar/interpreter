@@ -10,3 +10,5 @@ If it encounters a Num node, it simply returns the value of the number. If it en
 Finally, the interpret method of the Interpreter class is called, which initiates the evaluation of the expression. The interpret method calls the expr method of the parser, which constructs the tree of nodes, and then passes the tree to the visit method of the Interpreter to compute the final result. The result is then returned as the output of the interpret method.
 
 Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, and the use of an interpreter to traverse the tree and compute the final value of the expression.
+
+Can be used as a starting point for a compiler in the future.
