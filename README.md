@@ -7,7 +7,7 @@ The input expression is first converted into a token stream by the lexer, which 
 ### Parser
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of two types of nodes: Num nodes, which represent individual numbers in the expression, and BinOp nodes, which represent binary operations between two sub-expressions. Each BinOp node has a left child node and a right child node, which can be either Num or BinOp nodes themselves, depending on the complexity of the expression.
 
-Example abstract syntax tree:
+Example abstract syntax tree for `4 + 2 * 10 + 3 * (5 + 1)`:
 
 <p align="center">
   <img src="https://keleshev.com/abstract-syntax-tree-an-example-in-c/ast.svg"/>
