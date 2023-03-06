@@ -23,6 +23,7 @@ class CodeGenerator:
         self.floating_point_register_count += 1
         return register
 
+    # floating point if either left or right is a float
     def visit_Num(self, node: Num):
         if isinstance(node.value, int):
             self.result.append(f"movq ${node.value}, %rax")
@@ -91,7 +92,24 @@ class CodeGenerator:
                 self.result.append("jne .loop")
                 self.result.append(".done:")
 
-
+    def visit_FuncCall(self, node: FuncCall):
+        self.visit(node.arg)
+        if node.func == "sqrt":
+            self.result.append("movq %rax, %xmm0")
+            self.result.append("sqrtsd %xmm0, %xmm0")
+            self.result.append("movq %xmm0, %rax")
+        elif node.func == "sin":
+            self.result.append("movq %rax, %xmm0")
+            self.result.append("call sin")
+            self.result.append("movq %xmm0, %rax")
+        elif node.func == "cos":
+            self.result.append("movq %rax, %xmm0")
+            self.result.append("call cos")
+            self.result.append("movq %xmm0, %rax")
+        elif node.func == "tan":
+            self.result.append("movq %rax, %xmm0")
+            self.result.append("call tan")
+            self.result.append("movq %xmm0, %rax")
 
 
     def generate_code(self) -> List[str]:
