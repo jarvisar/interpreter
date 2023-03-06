@@ -51,6 +51,7 @@ To use the arithmetic interpreter, follow these steps:
     
     `14`
     
+    <br>
     
     `>> cos(0)`
     
