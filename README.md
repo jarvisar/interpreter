@@ -67,6 +67,14 @@ To use the arithmetic interpreter, follow these steps:
     `>> cos(0)`
     
     `1.0`
+    
+5. To generate assembly code for a given expression, press 2 after entering the input. The assembly code should be printed to the terminal.
+
+6. To test the generated code, edit the included `assembly.s` file to include the generated code. In this file is a section called `Calculate Expression` where the generated code should be pasted. To run the assembly code, use the following commands:
+
+	`~$ as -o assembly.o assembly.s --64`
+	`gcc -shared -o assembly assembly.o -lm -no-pie`
+	`./assembly`
      
 ### Known Issues
 
