@@ -7,9 +7,9 @@ The input expression is first converted into a token stream by the lexer, which 
 ### Parser
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of three types of nodes: 
 
-* Num nodes, which represent individual numbers in the expression
-* BinOp nodes, which represent binary operations between two sub-expressions
-* FuncCall nodes, which represent mathematical functions such as sine, cosine, and tangent 
+* Num nodes: represent individual numbers in the expression
+* BinOp nodes: represent binary operations between two sub-expressions
+* FuncCall nodes: represent mathematical functions such as sine, cosine, and tangent 
 
 Each BinOp node has a left child node and a right child node, which can be any of the nodes types themselves (such as a number or another BinOp), depending on the complexity of the expression. Similarly, each FuncCall node has a function name and argument, which tells the interpreter/generator to perform the specified function on the given argument.
 
