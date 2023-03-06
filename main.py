@@ -3,6 +3,7 @@ from ast import Num, BinOp, FuncCall, AST, Node
 from myparser import Parser
 from lexer import Lexer
 from interpreter import Interpreter
+from generator import CodeGenerator
 
 
 # print("Currently supports addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).")
@@ -11,6 +12,6 @@ while True:
     text = input("Enter an arithmetic expression: ")
     lexer = Lexer(text)
     parser = Parser(lexer)
-    interpreter = Interpreter(parser)
-    result = interpreter.interpret()
+    generator = CodeGenerator(parser)
+    result = generator.generate_code()
     print(result)
