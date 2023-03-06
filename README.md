@@ -56,3 +56,8 @@ To use the arithmetic interpreter, follow these steps:
     
     `1.0`
      
+### Known Issues
+
+Currently the interpreter has trouble generating Assembly code for functions (sin, cos, tan, sqrt) and floor division (//).
+
+Also plan to implement unary operators, e.g. negative signs in front of paranetheses: `-(5 + 3) = -8`
