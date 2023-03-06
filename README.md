@@ -80,6 +80,6 @@ To use the arithmetic interpreter, follow these steps:
      
 ### Known Issues
 
-Currently the generator has difficulties generating assembly code for functions (sin, cos, tan, sqrt), floor division (//), and floating-point numbers (decimals). However, these operations still work with the included interpreter.
+Currently the generator has difficulties generating assembly code for functions (sin, cos, tan, sqrt) and floating-point numbers (decimals). However, these operations still work with the included interpreter.
 
 Also plan to implement unary operators, e.g. negative signs in front of paranetheses: `-(5 + 3) = -8`
