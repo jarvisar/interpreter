@@ -16,8 +16,9 @@ while True:
     if action == "2":
         generator = CodeGenerator(parser)
         assembly_code = generator.generate_code()
-        print("Assembly code:")
+        print("== Begin Assembly Code ==")
         print("\n".join(assembly_code))
+        print("== End Assembly Code ==")
     else:
         intepreter = Interpreter(parser)
         result = intepreter.interpret()
