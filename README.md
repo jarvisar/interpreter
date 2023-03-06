@@ -7,6 +7,12 @@ The input expression is first converted into a token stream by the lexer, which 
 ### Parser
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of two types of nodes: Num nodes, which represent individual numbers in the expression, and BinOp nodes, which represent binary operations between two sub-expressions. Each BinOp node has a left child node and a right child node, which can be either Num or BinOp nodes themselves, depending on the complexity of the expression.
 
+Example abstract syntax tree:
+
+<p align="center">
+  <img src="https://keleshev.com/abstract-syntax-tree-an-example-in-c/ast.svg"/>
+</p>
+
 ### Interpreter
 Once the parser has constructed the tree of nodes, the Interpreter class is used to evaluate the expression. The Interpreter class contains a method called visit, which recursively traverses the tree of nodes and computes the final value of the expression. The visit method performs a different operation depending on the type of node it is currently visiting.
 
