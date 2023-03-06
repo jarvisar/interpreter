@@ -5,7 +5,7 @@ This application is a basic arithmetic interpreter that takes in mathematical ex
 The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression, such as numbers and operators.
 
 ### Parser
-The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of two types of nodes: Num nodes, which represent individual numbers in the expression, and BinOp nodes, which represent binary operations between two sub-expressions. Each BinOp node has a left child node and a right child node, which can be either Num or BinOp nodes themselves, depending on the complexity of the expression.
+The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of three types of nodes: Num nodes, which represent individual numbers in the expression, and BinOp nodes, which represent binary operations between two sub-expressions, and FuncCall nodex, which represent mathematical functions such as sine, cosine, and tangent. Each BinOp node has a left child node and a right child node, which can be either Num or BinOp nodes themselves, depending on the complexity of the expression. Similarly, each FuncCall node has a function name and argument, which tells the interpreter/generator to perform the specified function on the given argument.
 
 Example abstract syntax tree (AST) for `4 + 2 * 10 + 3 * (5 + 1)`:
 
