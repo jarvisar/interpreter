@@ -35,7 +35,7 @@ To use the arithmetic interpreter, follow these steps:
 
 1. Clone the repository to your local machine using the following command:
 
-	`git clone https://github.com/yourusername/interpreter.git`
+	`git clone https://github.com/jarvisar/interpreter.git`
     
 2. Change directory into the root folder of the cloned repository:
 
