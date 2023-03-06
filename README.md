@@ -50,4 +50,8 @@ To use the arithmetic interpreter, follow these steps:
 	`>> (2 + 3) * 4`
     
     `14`
+    
+    	`>> cos(0)`
+    
+    `1.0`
      
