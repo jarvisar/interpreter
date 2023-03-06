@@ -12,6 +12,14 @@ while True:
     text = input("Enter an arithmetic expression: ")
     lexer = Lexer(text)
     parser = Parser(lexer)
-    generator = CodeGenerator(parser)
-    result = generator.generate_code()
-    print(result)
+    action = input("Press 2 to show assembly code, or any other key to interpret result:")
+    if action == "2":
+        generator = CodeGenerator(parser)
+        assembly_code = generator.generate_code()
+        print("Assembly code:")
+        print("\n".join(assembly_code))
+    else:
+        intepreter = Interpreter(parser)
+        result = intepreter.interpret()
+        print(f'Result: {result}')
+
