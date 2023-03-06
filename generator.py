@@ -78,5 +78,4 @@ class CodeGenerator:
     def generate_code(self) -> List[str]:
         tree = self.parser.expr()
         self.visit(tree)
-        self.result.append("retq")
         return self.result
