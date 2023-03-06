@@ -22,7 +22,7 @@ Finally, the interpret method of the Interpreter class is called, which initiate
 
 ### Assembly Code Generator
 
-The generator.py file contains a class called CodeGenerator, which generates assembly code from the AST produced by the parser. The CodeGenerator class defines several methods, each of which handles a specific type of AST node:
+The generator.py file contains a class called CodeGenerator, which generates x86-64 assembly code from the AST produced by the parser. The CodeGenerator class defines several methods, each of which handles a specific type of AST node:
 
 * visit_Num: This method generates assembly code for a Num node, which represents a number in the AST. The method moves the value of the number into the %rax register.
 
@@ -33,7 +33,7 @@ The generator.py file contains a class called CodeGenerator, which generates ass
 The CodeGenerator class also defines a generate_code method, which takes an expression and returns a list of assembly instructions that can be executed by a processor. This method creates an AST from the expression using the parser, then visits the nodes of the AST using the appropriate methods in the CodeGenerator class to generate the corresponding assembly code.
 
 ### Features
-Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating and generating assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, the use of an interpreter to traverse the tree and compute the final value of the expression, and the use of a code generator to traverse the tree and generate assembly code for the given expression.
+Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, the use of an interpreter to traverse the tree and compute the final value of the expression, and the use of a code generator to traverse the tree and generate assembly code for the given expression.
 
 Currently, it supports addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
 
