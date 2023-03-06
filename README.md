@@ -11,7 +11,7 @@ The token stream is then parsed by the parser, which creates a tree of nodes tha
 * BinOp nodes: represent binary operations between two sub-expressions
 * FuncCall nodes: represent mathematical functions such as sine, cosine, and tangent 
 
-Each BinOp node has a left child node and a right child node, which can be any of the nodes types themselves (such as a number or another BinOp), depending on the complexity of the expression. Similarly, each FuncCall node has a function name and argument, which tells the interpreter/generator to perform the specified function on the given argument.
+Each BinOp node has a left child node and a right child node, which can be any of the nodes types themselves (such as a number or another BinOp), depending on the complexity of the expression. Similarly, each FuncCall node has a function name and argument, which tells the interpreter/generator to perform the specified function with the given argument(s).
 
 Example abstract syntax tree (AST) for `4 + 2 * 10 + 3 * (5 + 1)`:
 
@@ -22,7 +22,7 @@ Example abstract syntax tree (AST) for `4 + 2 * 10 + 3 * (5 + 1)`:
 ### Interpreter
 Once the parser has constructed the tree of nodes, the Interpreter class is used to evaluate the expression. The Interpreter class contains a method called visit, which recursively traverses the tree of nodes and computes the final value of the expression. The visit method performs a different operation depending on the type of node it is currently visiting.
 
-If it encounters a Num node, it simply returns the value of the number. If it encounters a BinOp node, it performs the appropriate arithmetic operation based on the type of operator, and recursively calls visit on the left and right child nodes to compute their values.
+If it encounters a Num node, it simply returns the value of the number. If it encounters a BinOp node, it performs the appropriate arithmetic operation based on the type of operator, and recursively calls visit on the left and right child nodes to compute their values. If it encounters a FuncCall node, it performs the specified function with the given argument(s).
 
 Finally, the interpret method of the Interpreter class is called, which initiates the evaluation of the expression. The interpret method calls the expr method of the parser, which constructs the tree of nodes, and then passes the tree to the visit method of the Interpreter to compute the final result. The result is then returned as the output of the interpret method.
 
@@ -37,6 +37,8 @@ The generator.py file contains a class called CodeGenerator, which generates x86
 * visit_FuncCall: This method generates assembly code for a FuncCall node, which represents a function call in the AST. The method recursively visits the argument to the function call, then generates assembly code to call the appropriate function (such as sin or cos) and stores the result in the %xmm0 register.
 
 The CodeGenerator class also defines a generate_code method, which takes an expression and returns a list of assembly instructions that can be executed by a processor. This method creates an AST from the expression using the parser, then visits the nodes of the AST using the appropriate methods in the CodeGenerator class to generate the corresponding assembly code.
+
+The CodeGenerator outputs a list of x86-64 assembly instructions corresponding to the user's input expression.
 
 ### Features
 Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, the use of an interpreter to traverse the tree and compute the final value of the expression, and the use of a code generator to traverse the tree and generate assembly code for the given expression.
