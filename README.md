@@ -7,6 +7,12 @@ The input expression is first converted into a token stream by the lexer, which 
 ### Parser
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of two types of nodes: Num nodes, which represent individual numbers in the expression, and BinOp nodes, which represent binary operations between two sub-expressions. Each BinOp node has a left child node and a right child node, which can be either Num or BinOp nodes themselves, depending on the complexity of the expression.
 
+Example abstract syntax tree for `4 + 2 * 10 + 3 * (5 + 1)`:
+
+<p align="center">
+  <img src="https://keleshev.com/abstract-syntax-tree-an-example-in-c/ast.svg"/>
+</p>
+
 ### Interpreter
 Once the parser has constructed the tree of nodes, the Interpreter class is used to evaluate the expression. The Interpreter class contains a method called visit, which recursively traverses the tree of nodes and computes the final value of the expression. The visit method performs a different operation depending on the type of node it is currently visiting.
 
@@ -29,7 +35,7 @@ To use the arithmetic interpreter, follow these steps:
 
 1. Clone the repository to your local machine using the following command:
 
-	`git clone https://github.com/yourusername/interpreter.git`
+	`git clone https://github.com/jarvisar/interpreter.git`
     
 2. Change directory into the root folder of the cloned repository:
 
@@ -44,4 +50,9 @@ To use the arithmetic interpreter, follow these steps:
 	`>> (2 + 3) * 4`
     
     `14`
+    
+    
+    `>> cos(0)`
+    
+    `1.0`
      
