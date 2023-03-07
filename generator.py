@@ -60,7 +60,7 @@ class CodeGenerator:
         if node.func == "sqrt":
             self.result.append("cvtsi2sd %rax, %xmm0")
             self.result.append("sqrtsd %xmm0, %xmm0")
-            self.result.append("cvtsd2si %xmm0, %rsi")
+            self.result.append("cvtsd2si %xmm0, %rax")
         elif node.func == "sin":
             self.result.append("movq %rax, %xmm0")
             self.result.append("call sin")
