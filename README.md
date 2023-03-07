@@ -1,4 +1,4 @@
-# Arithmetic Interpreter
+# Arithmetic Interpreter & Assembly Code Generator
 This application is a basic arithmetic interpreter that takes in mathematical expressions as input and evaluates them.
 
 ### Lexer
