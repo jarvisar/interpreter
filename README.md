@@ -1,8 +1,8 @@
-# Arithmetic Interpreter
-This application is a basic arithmetic interpreter that takes in mathematical expressions as input and evaluates them.
+# Arithmetic Interpreter & Assembly Code Generator
+An arithmetic interpreter with x86-64 assembly code generator for evaluating mathematical expressions.
 
 ### Lexer
-The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression, such as numbers and operators.
+The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression, such as numbers, operators, and functions.
 
 ### Parser
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of three types of nodes: 
@@ -86,8 +86,12 @@ To use the arithmetic interpreter, follow these steps:
 	
 	`$ ./assembly`
      
-### Known Issues
+### Known Issues & Limitations
 
-Currently the generator has difficulties generating assembly code for functions (sin, cos, tan, sqrt) and floating-point numbers (decimals). However, these operations still work with the included interpreter.
+The x86-64 assembly code generator is limited to integers and will round all calculations to the nearest whole number. However, the included interpreter is capable of handling decimals.
 
-Also plan to implement unary operators, e.g. negative signs in front of paranetheses: `-(5 + 3) = -8`
+Also plan to implement unary operators, e.g. negative signs in front of paranetheses: `-(2 + 3) = -5`
+
+## Reflection
+
+Working on this project has been an excellent learning opportunity, allowing me to improve my programming skills and gain a deeper understanding of various concepts in computer science. Creating the lexer and parser helped me better understand how programming languages are parsed and executed, and allowed me to gain a better understanding of how syntax affects the overall structure of a program. Creating the code generator allowed me to dive deeper into assembly language and understand how it interacts with hardware. This project also allowed me to gain experience working with abstract data structures such as syntax trees, and I hope to apply these skills to build more complex software in the future. Overall, this project has been a great way to improve my skills and deepen my understanding of fundementals computer science concepts.
