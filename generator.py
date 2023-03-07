@@ -6,7 +6,6 @@ class CodeGenerator:
     def __init__(self, parser):
         self.parser = parser
         self.result = []
-        self.floating_point_register_count = 0
 
     def visit(self, node: AST):
         method_name = f"visit_{type(node).__name__}"
@@ -16,101 +15,68 @@ class CodeGenerator:
     def generic_visit(self, node: AST):
         raise NotImplementedError(f"No visit_{type(node).__name__} method")
 
-    def get_floating_point_register(self) -> str:
-        if self.floating_point_register_count >= 8:
-            raise Exception("Out of floating point registers")
-        register = f"%xmm{self.floating_point_register_count}"
-        self.floating_point_register_count += 1
-        return register
-
-    # floating point if either left or right is a float
     def visit_Num(self, node: Num):
-        if isinstance(node.value, int):
-            self.result.append(f"movq ${node.value}, %rax")
-        elif isinstance(node.value, float):
-            register = self.get_floating_point_register()
-            self.result.append(f"movsd ${node.value}, {register}")
+        self.result.append(f"movq ${node.value}, %rax")
 
     def visit_BinOp(self, node: BinOp):
         self.visit(node.left)
-        if isinstance(node.left.value, int):
-            self.result.append("pushq %rax")
-        elif isinstance(node.left.value, float):
-            register = self.get_floating_point_register()
-            self.result.append(f"movsd {register}, %xmm0")
+        self.result.append("pushq %rax")
         self.visit(node.right)
-        if isinstance(node.right.value, int):
-            self.result.append("movq %rax, %rbx")
-            self.result.append("popq %rax")
-        elif isinstance(node.right.value, float):
-            register = self.get_floating_point_register()
-            self.result.append(f"movsd {register}, %xmm1")
-            self.result.append(f"movsd %xmm0, {register}")
+        self.result.append("movq %rax, %rbx")
+        self.result.append("popq %rax")
         if node.op.type == PLUS:
-            if isinstance(node.left.value, int) and isinstance(node.right.value, int):
-                self.result.append("addq %rbx, %rax")
-            else:
-                self.result.append("addsd %xmm1, %xmm0")
+            self.result.append("addq %rbx, %rax")
         elif node.op.type == MINUS:
-            if isinstance(node.left.value, int) and isinstance(node.right.value, int):
-                self.result.append("subq %rbx, %rax")
-            else:
-                self.result.append("subsd %xmm1, %xmm0")
+            self.result.append("subq %rbx, %rax")
         elif node.op.type == MULTIPLY:
-            if isinstance(node.left.value, int) and isinstance(node.right.value, int):
-                self.result.append("imulq %rbx, %rax")
-            else:
-                self.result.append("mulsd %xmm1, %xmm0")
+            self.result.append("imulq %rbx, %rax")
         elif node.op.type == DIVIDE:
-            if isinstance(node.left.value, int) and isinstance(node.right.value, int):
-                self.result.append("cqto")
-                self.result.append("idivq %rbx")
-            else:
-                self.result.append("divsd %xmm1, %xmm0")
+            self.result.append("cqto")
+            self.result.append("idivq %rbx")
         elif node.op.type == MODULO:
             self.result.append("cqto")
             self.result.append("idivq %rbx")
             self.result.append("movq %rdx, %rax")
         elif node.op.type == FLOOR_DIVIDE:
-            if isinstance(node.left.value, int) and isinstance(node.right.value, int):
-                self.result.append("cqto")
-                self.result.append("idivq %rbx")
-            else:
-                self.result.append("cvtsd2si %xmm0, %rax")
-                self.result.append("cvtsd2si %xmm1, %rbx")
-                self.result.append("cqto")
-                self.result.append("idivq %rbx")
-        elif node.op.type == EXPONENT:
-            if isinstance(node.left.value, int) and isinstance(node.right.value, int):
-                self.result.append("movq %rax, %rbx")
-                self.result.append("movq $1, %rax")
-                self.result.append("cmpq $0, %rbx")
-                self.result.append("je .done")
-                self.result.append(".loop:")
-                self.result.append("imulq %rax, %rax")
-                self.result.append("decq %rbx")
-                self.result.append("jne .loop")
-                self.result.append(".done:")
+            self.result.append("cqto")
+            self.result.append("idivq %rbx")
+        elif node.op.type == EXPONENTIATION:
+            self.result.append("movq %rax, %rcx")
+            self.result.append("movq $1, %rax")
+            self.result.append("cmpq $0, %rbx")
+            self.result.append("je .exponentiation_done")
+            self.result.append(".exponentiation_loop:")
+            self.result.append("testq $1, %rbx")
+            self.result.append("jz .exponentiation_square")
+            self.result.append("imulq %rcx, %rax")
+            self.result.append(".exponentiation_square:")
+            self.result.append("imulq %rcx, %rcx")
+            self.result.append("shr $1, %rbx")
+            self.result.append("jnz .exponentiation_loop")
+            self.result.append(".exponentiation_done:")
 
     def visit_FuncCall(self, node: FuncCall):
         self.visit(node.arg)
         if node.func == "sqrt":
+            self.result.append("movq $0, %rax")
+            self.result.append("movq %xmm0, %xmm1")
+            self.result.append("sqrtsd %xmm1, %xmm0")
             self.result.append("movq %rax, %xmm0")
-            self.result.append("sqrtsd %xmm0, %xmm0")
-            self.result.append("movq %xmm0, %rax")
         elif node.func == "sin":
-            self.result.append("movq %rax, %xmm0")
+            self.result.append("movq $0, %rax")
+            self.result.append("movq %xmm0, %xmm1")
             self.result.append("call sin")
-            self.result.append("movq %xmm0, %rax")
+            self.result.append("movq %rax, %xmm0")
         elif node.func == "cos":
-            self.result.append("movq %rax, %xmm0")
+            self.result.append("movq $0, %rax")
+            self.result.append("movq %xmm0, %xmm1")
             self.result.append("call cos")
-            self.result.append("movq %xmm0, %rax")
-        elif node.func == "tan":
             self.result.append("movq %rax, %xmm0")
+        elif node.func == "tan":
+            self.result.append("movq $0, %rax")
+            self.result.append("movq %xmm0, %xmm1")
             self.result.append("call tan")
-            self.result.append("movq %xmm0, %rax")
-
+            self.result.append("movq %rax, %xmm0")
 
     def generate_code(self) -> List[str]:
         tree = self.parser.expr()
