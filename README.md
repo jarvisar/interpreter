@@ -2,7 +2,7 @@
 An arithmetic interpreter with x86-64 assembly code generator for evaluating mathematical expressions.
 
 ### Lexer
-The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression, such as numbers and operators.
+The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression, such as numbers, operators, and functions.
 
 ### Parser
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of three types of nodes: 
