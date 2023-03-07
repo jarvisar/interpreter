@@ -1,3 +1,5 @@
+# Example x64 assembly program to print out the result of the expression 2 + (6 / 2)
+# Paste generated assembly code into the main function below to print out the result
 .section .data
     result_fmt: .string "Result: %ld\n"
 
@@ -6,19 +8,15 @@
     .type main, @function
 main:
     # Calculate expression (paste generated assembly code here)
-    movq $3, %rax
+    movq $2, %rax
     pushq %rax
-    movq $4, %rax
+    movq $6, %rax
+    pushq %rax
+    movq $2, %rax
     movq %rax, %rbx
     popq %rax
-    imulq %rbx, %rax
-    pushq %rax
-    movq $5, %rax
-    pushq %rax
-    movq $4, %rax
-    movq %rax, %rbx
-    popq %rax
-    imulq %rbx, %rax
+    cqto
+    idivq %rbx
     movq %rax, %rbx
     popq %rax
     addq %rbx, %rax
@@ -33,3 +31,6 @@ main:
     # Exit
     movq $0, %rax
     retq
+
+
+# by Adam Jarvis
