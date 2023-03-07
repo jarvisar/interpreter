@@ -69,7 +69,7 @@ To use the arithmetic interpreter, follow these steps:
 
 	`>> (2 + 3) * 4`
     
-    `14`
+    `20`
     
     
     `>> cos(0)`
