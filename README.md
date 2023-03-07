@@ -90,7 +90,7 @@ To use the arithmetic interpreter, follow these steps:
 
 The x86-64 assembly code generator is limited to integers and will round all calculations to the nearest whole number. However, the included interpreter is capable of handling decimals.
 
-Also plan to implement unary operators, e.g. negative signs in front of paranetheses: `-(5 + 3) = -8`
+Also plan to implement unary operators, e.g. negative signs in front of paranetheses: `-(2 + 3) = -5`
 
 ## Reflection
 
