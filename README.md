@@ -86,8 +86,8 @@ To use the arithmetic interpreter, follow these steps:
 	
 	`$ ./assembly`
      
-### Known Issues
+### Known Issues & Limitations
 
-Currently the generator has difficulties generating assembly code for functions (sin, cos, tan, sqrt) and floating-point numbers (decimals). However, these operations still work with the included interpreter.
+The x86-64 assembly code generator is limited to integers and will round all calculations to the nearest whole number. However, the included interpreter is capable of handling decimals.
 
 Also plan to implement unary operators, e.g. negative signs in front of paranetheses: `-(5 + 3) = -8`
