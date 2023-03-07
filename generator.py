@@ -60,19 +60,19 @@ class CodeGenerator:
         if node.func == "sqrt":
             self.result.append("cvtsi2sd %rax, %xmm0")
             self.result.append("sqrtsd %xmm0, %xmm0")
-            self.result.append("cvtsd2si %xmm0, %rax")
+            self.result.append("cvttsd2si %xmm0, %rax")
         elif node.func == "sin":
-            self.result.append("movq %rax, %xmm0")
+            self.result.append("cvtsi2sd %rax, %xmm0")
             self.result.append("call sin")
-            self.result.append("movq %xmm0, %rax")
+            self.result.append("cvttsd2si %xmm0, %rax")
         elif node.func == "cos":
-            self.result.append("movq %rax, %xmm0")
+            self.result.append("cvtsi2sd %rax, %xmm0")
             self.result.append("call cos")
-            self.result.append("movq %xmm0, %rax")
+            self.result.append("cvttsd2si %xmm0, %rax")
         elif node.func == "tan":
-            self.result.append("movq %rax, %xmm0")
+            self.result.append("cvtsi2sd %rax, %xmm0")
             self.result.append("call tan")
-            self.result.append("movq %xmm0, %rax")
+            self.result.append("cvttsd2si %xmm0, %rax")
 
     def generate_code(self) -> List[str]:
         tree = self.parser.expr()
