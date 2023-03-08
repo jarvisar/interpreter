@@ -38,7 +38,7 @@ The generator.py file contains a class called CodeGenerator, which generates x86
 
 The CodeGenerator class also defines a generate_code method, which takes an expression and returns a list of assembly instructions that can be executed by a processor. This method creates an AST from the expression using the parser, then visits the nodes of the AST using the appropriate methods in the CodeGenerator class to generate the corresponding assembly code.
 
-The CodeGenerator outputs a list of x86-64 assembly instructions corresponding to the user's input expression. The included `assembly.s` file includes starter assembly code to print out the result of the assembly calculation; see below for instructions to compile and execute it. 
+The CodeGenerator outputs a list of x86-64 assembly instructions corresponding to the user's input expression. The included `assembly.s` file includes starter assembly code to print out the result of the assembly calculation; see instructions below on how to compile and execute it. 
 
 ### Features
 Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, the use of an interpreter to traverse the tree and compute the final value of the expression, and the use of a code generator to traverse the tree and generate assembly code for the given expression.
