@@ -1,8 +1,8 @@
 # Arithmetic Interpreter & Assembly Code Generator
-An arithmetic interpreter with x86-64 assembly code generator for evaluating mathematical expressions.
+An arithmetic interpreter for evaluating mathematical expressions and generating x86-64 assembly code.
 
 ### Lexer
-The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression, such as numbers, operators, and functions.
+The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, and functions).
 
 ### Parser
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of three types of nodes: 
@@ -38,7 +38,7 @@ The generator.py file contains a class called CodeGenerator, which generates x86
 
 The CodeGenerator class also defines a generate_code method, which takes an expression and returns a list of assembly instructions that can be executed by a processor. This method creates an AST from the expression using the parser, then visits the nodes of the AST using the appropriate methods in the CodeGenerator class to generate the corresponding assembly code.
 
-The CodeGenerator outputs a list of x86-64 assembly instructions corresponding to the user's input expression.
+The CodeGenerator outputs a list of x86-64 assembly instructions corresponding to the user's input expression. The included `assembly.s` file contains a set of initial assembly code to print the result of the assembly calculation. To compile and execute it, refer to the instructions below.
 
 ### Features
 Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, the use of an interpreter to traverse the tree and compute the final value of the expression, and the use of a code generator to traverse the tree and generate assembly code for the given expression.
@@ -69,7 +69,7 @@ To use the arithmetic interpreter, follow these steps:
 
 	`>> (2 + 3) * 4`
     
-    `14`
+    `20`
     
     
     `>> cos(0)`
@@ -94,4 +94,4 @@ Also plan to implement unary operators, e.g. negative signs in front of paraneth
 
 ## Reflection
 
-Working on this project has been an excellent learning opportunity, allowing me to improve my programming skills and gain a deeper understanding of various concepts in computer science. Creating the lexer and parser helped me better understand how programming languages are parsed and executed, and allowed me to gain a better understanding of how syntax affects the overall structure of a program. Creating the code generator allowed me to dive deeper into assembly language and understand how it interacts with hardware. This project also allowed me to gain experience working with abstract data structures such as syntax trees, and I hope to apply these skills to build more complex software in the future. Overall, this project has been a great way to improve my skills and deepen my understanding of fundementals computer science concepts.
+Working on this project has been an excellent learning opportunity, allowing me to improve my programming skills and gain a deeper understanding of various concepts in computer science. Creating the lexer and parser helped me better understand how programming languages are parsed and executed, and allowed me to gain a better understanding of how syntax affects the overall structure of a program. Creating the code generator allowed me to dive deeper into assembly language and understand how it interacts with hardware. This project also allowed me to gain experience working with abstract data structures such as syntax trees, and I hope to apply these skills to build more complex software in the future. Overall, this project has been a great way to improve my skills and deepen my understanding of fundemental computer science concepts.
