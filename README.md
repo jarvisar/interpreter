@@ -45,7 +45,7 @@ Overall, this application provides a basic implementation of an arithmetic inter
 
 Currently, it supports binary operations such addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
 
-It also supports several functions, such as sin, cos, tan, sqrt, log, and exp. Currently the only unary operation supported is factorials (!).
+It also supports several functions, such as sin, cos, tan, sqrt, log, and exp. Also supports unary operations, such as factorial and negatives with non-numbers. E.g. `-(2 + 3)` outputs `-5`
 
 Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
 
