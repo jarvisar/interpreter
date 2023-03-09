@@ -22,3 +22,8 @@ class FuncCall(Node):
     
     def __repr__(self):
         return f"{self.func}({self.arg})"
+
+class UnaryOp(AST):
+    def __init__(self, op, expr):
+        self.token = self.op = op
+        self.expr = expr
