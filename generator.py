@@ -1,5 +1,5 @@
 from typing import List
-from ast import Num, BinOp, FuncCall, AST
+from ast import Num, BinOp, FuncCall, AST, UnaryOp
 from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP
 
 class CodeGenerator:
@@ -81,6 +81,19 @@ class CodeGenerator:
             self.result.append("cvtsi2sd %rax, %xmm0")
             self.result.append("call exp")
             self.result.append("cvttsd2si %xmm0, %rax")
+
+    # factorial
+    def visit_UnaryOp(self, node: UnaryOp):
+        self.visit(node.expr)
+        self.result.append("movq %rax, %rcx")
+        self.result.append("movq $1, %rax")
+        self.result.append("cmpq $0, %rcx")
+        self.result.append("je .factorial_done")
+        self.result.append(".factorial_loop:")
+        self.result.append("imulq %rcx, %rax")
+        self.result.append("decq %rcx")
+        self.result.append("jnz .factorial_loop")
+        self.result.append(".factorial_done:")
 
     def generate_code(self) -> List[str]:
         tree = self.parser.expr()
