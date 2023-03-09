@@ -10,6 +10,8 @@ class Interpreter:
         if isinstance(node, UnaryOp):
             if node.op.type == FACTORIAL:
                 return math.factorial(self.visit(node.expr))
+            elif node.op.type == MINUS:
+                return -self.visit(node.expr)
             else:
                 raise ValueError(f"Invalid operator type: {node.op.type}")
         elif isinstance(node, Num):

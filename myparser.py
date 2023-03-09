@@ -35,6 +35,10 @@ class Parser:
             node = self.expr()
             self.eat(RPAREN)
             return node
+        elif token.type == MINUS:
+            self.eat(MINUS)
+            node = UnaryOp(Token(MINUS, '-'), self.factor())
+            return node
         elif token.type == EXPONENTIATION:
             self.eat(EXPONENTIATION)
             node = self.factor()

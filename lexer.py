@@ -84,11 +84,8 @@ class Lexer:
                 return Token(PLUS, '+')
 
             if self.current_char == '-':
-                if self.peek().isdigit():
-                    return self.integer(negative=True)
-                else:
-                    self.advance()
-                    return Token(MINUS, '-')
+                self.advance()
+                return Token(MINUS, '-')
 
             if self.current_char == '*':
                 self.advance()

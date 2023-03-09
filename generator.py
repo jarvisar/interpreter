@@ -1,6 +1,6 @@
 from typing import List
 from ast import Num, BinOp, FuncCall, AST, UnaryOp
-from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP
+from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL
 
 class CodeGenerator:
     def __init__(self, parser):
@@ -84,17 +84,21 @@ class CodeGenerator:
 
     # factorial
     def visit_UnaryOp(self, node: UnaryOp):
-        self.visit(node.expr)
-        self.result.append("movq %rax, %rcx")
-        self.result.append("movq $1, %rax")
-        self.result.append("cmpq $0, %rcx")
-        self.result.append("je .factorial_done")
-        self.result.append(".factorial_loop:")
-        self.result.append("imulq %rcx, %rax")
-        self.result.append("decq %rcx")
-        self.result.append("jnz .factorial_loop")
-        self.result.append(".factorial_done:")
-
+        if node.op.type == MINUS:
+            self.result.append("movq $0, %rax")
+            self.result.append("subq %rax, %rax")
+        elif node.op.type == FACTORIAL:
+            self.visit(node.expr)
+            self.result.append("movq %rax, %rcx")
+            self.result.append("movq $1, %rax")
+            self.result.append("cmpq $0, %rcx")
+            self.result.append("je .factorial_done")
+            self.result.append(".factorial_loop:")
+            self.result.append("imulq %rcx, %rax")
+            self.result.append("decq %rcx")
+            self.result.append("jnz .factorial_loop")
+            self.result.append(".factorial_done:")
+        
     def generate_code(self) -> List[str]:
         tree = self.parser.expr()
         self.visit(tree)
