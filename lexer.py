@@ -147,6 +147,13 @@ class Lexer:
                 self.skip_whitespace()
                 return Token(ID, 'sqrt')
 
+            if self.current_char == 'l' and self.text[self.pos:self.pos+3] == 'log':
+                self.advance()
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(ID, 'log')
+
             self.error()
 
         return Token(EOF, None)
