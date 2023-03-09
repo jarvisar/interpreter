@@ -1,4 +1,4 @@
-from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF
+from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP
 from ast import Num, BinOp, FuncCall, AST, Node
 
 class Lexer:
@@ -105,6 +105,10 @@ class Lexer:
             if self.current_char == '%':
                 self.advance()
                 return Token(MODULO, '%')
+
+            if self.current_char == '!':
+                self.advance()
+                return Token(FACTORIAL, '!')
 
             if self.current_char == '^':
                 self.advance()

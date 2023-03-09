@@ -39,6 +39,10 @@ class Parser:
             self.eat(MODULO)
             node = BinOp(left=node, op=token, right=self.factor())
             return node
+        elif token.type == INTEGER and self.lexer.current_char == "!":
+            self.eat(FACTORIAL)
+            node = self.factor()
+            return Factorial(node)
         elif token.type == ID:
             func_name = self.current_token.value
             self.eat(ID)
