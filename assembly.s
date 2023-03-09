@@ -7,6 +7,7 @@
     .globl main
     .type main, @function
 main:
+    subq $8, %rsp
     # Calculate expression (paste generated assembly code here)
     movq $2, %rax
     pushq %rax
@@ -29,6 +30,7 @@ main:
     call printf
 
     # Exit
+    addq $8, %rsp #re-align stack
     movq $0, %rax
     retq
 
