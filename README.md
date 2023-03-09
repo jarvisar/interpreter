@@ -45,7 +45,7 @@ Overall, this application provides a basic implementation of an arithmetic inter
 
 Currently, it supports addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
 
-It also supports several functions, such as sin, cos, tan, and sqrt.
+It also supports several functions, such as sin, cos, tan, sqrt, log, and exp.
 
 Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
 
