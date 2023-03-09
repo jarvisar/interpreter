@@ -1,5 +1,5 @@
-from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF
-from ast import Num, BinOp, FuncCall, AST, Node
+from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, FACTORIAL
+from ast import Num, BinOp, FuncCall, AST, Node, UnaryOp
 
 class Parser:
     def __init__(self, lexer):
@@ -22,6 +22,10 @@ class Parser:
         token = self.current_token
         if token.type == INTEGER:
             self.eat(INTEGER)
+            if self.current_token.type == FACTORIAL:
+                op = self.current_token
+                self.eat(FACTORIAL)
+                return UnaryOp(op, Num(token))
             return Num(token)
         elif token.type == FLOAT:
             self.eat(FLOAT)
@@ -39,10 +43,7 @@ class Parser:
             self.eat(MODULO)
             node = BinOp(left=node, op=token, right=self.factor())
             return node
-        elif token.type == INTEGER and self.lexer.current_char == "!":
-            self.eat(FACTORIAL)
-            node = self.factor()
-            return Factorial(node)
+            
         elif token.type == ID:
             func_name = self.current_token.value
             self.eat(ID)
@@ -55,7 +56,6 @@ class Parser:
 
     def term(self):
         node = self.factor()
-
         while self.current_token.type in (MULTIPLY, DIVIDE, FLOOR_DIVIDE, EXPONENTIATION, MODULO):
             token = self.current_token
             if token.type == MULTIPLY:
@@ -72,6 +72,10 @@ class Parser:
                 node = BinOp(left=node, op=token, right=self.factor())
             elif token.type == MODULO:
                 self.eat(MODULO)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == FACTORIAL:
+                self.eat(FACTORIAL)
+                print("HI")
                 node = BinOp(left=node, op=token, right=self.factor())
 
         return node
