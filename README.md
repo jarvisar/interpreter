@@ -43,9 +43,9 @@ The CodeGenerator outputs a list of x86-64 assembly instructions corresponding t
 ### Features
 Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, the use of an interpreter to traverse the tree and compute the final value of the expression, and the use of a code generator to traverse the tree and generate assembly code for the given expression.
 
-Currently, it supports addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
+Currently, it supports binary operations such addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
 
-It also supports several functions, such as sin, cos, tan, sqrt, log, and exp.
+It also supports several functions, such as sin, cos, tan, sqrt, log, and exp. Currently the only unary operation supported is factorials (!).
 
 Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
 
@@ -90,7 +90,7 @@ To use the arithmetic interpreter, follow these steps:
 
 The x86-64 assembly code generator is limited to integers and will round all calculations to the nearest whole number. However, the included interpreter is capable of handling decimals.
 
-Also plan to implement unary operators, e.g. negative signs in front of paranetheses `-(2 + 3) = -5` and factorials `6! = 720`
+Plan to implement additional unary operators, e.g. negative signs in front of paranetheses `-(2 + 3) = -5`. 
 
 ## Reflection
 
