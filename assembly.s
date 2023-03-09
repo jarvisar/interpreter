@@ -30,7 +30,7 @@ main:
     call printf
 
     # Exit
-    addq $8, %rsp #re-align stack
+    addq $8, %rsp # restore stack stack
     movq $0, %rax
     retq
 
