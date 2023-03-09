@@ -42,6 +42,8 @@ class Interpreter:
                 return math.sqrt(self.visit(node.arg))
             elif node.func == 'log':
                 return math.log(self.visit(node.arg))
+            elif node.func == 'exp':
+                return math.exp(self.visit(node.arg))
             else:
                 raise ValueError(f"Invalid function name: {node.func}")
         else:

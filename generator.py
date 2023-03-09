@@ -77,6 +77,10 @@ class CodeGenerator:
             self.result.append("cvtsi2sd %rax, %xmm0")
             self.result.append("call log")
             self.result.append("cvttsd2si %xmm0, %rax")
+        elif node.func == "exp":
+            self.result.append("cvtsi2sd %rax, %xmm0")
+            self.result.append("call exp")
+            self.result.append("cvttsd2si %xmm0, %rax")
 
     def generate_code(self) -> List[str]:
         tree = self.parser.expr()

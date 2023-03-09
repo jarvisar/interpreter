@@ -154,6 +154,13 @@ class Lexer:
                 self.skip_whitespace()
                 return Token(ID, 'log')
 
+            if self.current_char == 'e' and self.text[self.pos:self.pos+3] == 'exp':
+                self.advance()
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(ID, 'exp')
+
             self.error()
 
         return Token(EOF, None)
