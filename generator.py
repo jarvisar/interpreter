@@ -85,8 +85,10 @@ class CodeGenerator:
     # factorial
     def visit_UnaryOp(self, node: UnaryOp):
         if node.op.type == MINUS:
-            self.result.append("movq $0, %rax")
-            self.result.append("subq %rax, %rax")
+            self.visit(node.expr)
+            self.result.append("movq $0, %rbx")
+            self.result.append("subq %rax, %rbx")
+            self.result.append("movq %rbx, %rax")
         elif node.op.type == FACTORIAL:
             self.visit(node.expr)
             self.result.append("movq %rax, %rcx")
