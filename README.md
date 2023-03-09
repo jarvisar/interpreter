@@ -45,7 +45,7 @@ Overall, this application provides a basic implementation of an arithmetic inter
 
 Currently, it supports binary operations such addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
 
-It also supports several functions, such as sin, cos, tan, sqrt, log, and exp. Currently the only unary operation supported is factorials (!).
+It also supports several functions, such as sin, cos, tan, sqrt, log, and exp. Also supports unary operations, such as factorial and negatives with non-numbers. E.g. `-(2 + 3)` outputs `-5`
 
 Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
 
@@ -89,8 +89,6 @@ To use the arithmetic interpreter, follow these steps:
 ### Known Issues & Limitations
 
 The x86-64 assembly code generator is limited to integers and will round all calculations to the nearest whole number. However, the included interpreter is capable of handling decimals.
-
-Plan to implement additional unary operators, e.g. negative signs in front of paranetheses `-(2 + 3) = -5`. 
 
 ## Reflection
 
