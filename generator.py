@@ -18,6 +18,7 @@ class CodeGenerator:
     def visit_Num(self, node: Num):
         self.result.append(f"movq ${node.value}, %rax")
 
+    # Binary operators
     def visit_BinOp(self, node: BinOp):
         self.visit(node.left)
         self.result.append("pushq %rax")
@@ -55,6 +56,7 @@ class CodeGenerator:
             self.result.append("jnz .exponentiation_loop")
             self.result.append(".exponentiation_done:")
 
+    # Functions
     def visit_FuncCall(self, node: FuncCall):
         self.visit(node.arg)
         if node.func == "sqrt":
@@ -82,7 +84,7 @@ class CodeGenerator:
             self.result.append("call exp")
             self.result.append("cvttsd2si %xmm0, %rax")
 
-    # factorial
+    # Unary Operators
     def visit_UnaryOp(self, node: UnaryOp):
         if node.op.type == MINUS:
             self.visit(node.expr)
