@@ -85,6 +85,8 @@ To use the arithmetic interpreter, follow these steps:
 	`$ gcc -shared -o assembly assembly.o -lm -no-pie`
 	
 	`$ ./assembly`
+	
+  <b>Note:</b> The assembly.s file may need to be modified to ensure compatibility with the system architecture or operating system of the computer it is being run on.
      
 ### Known Issues & Limitations
 
