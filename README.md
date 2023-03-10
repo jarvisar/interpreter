@@ -2,14 +2,16 @@
 An arithmetic interpreter and compiler for evaluating mathematical expressions and generating x86-64 assembly code.
 
 ### Lexer
-The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, and functions).
+The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, functions, and variables).
 
 ### Parser
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of three types of nodes: 
 
 * Num nodes: represent individual numbers in the expression
+* Var nodes: represent variables with a sub-expression as a value
 * BinOp nodes: represent binary operations between two sub-expressions
 * FuncCall nodes: represent mathematical functions such as sine, cosine, and tangent 
+* UnaryOp nodes: represent unary operations on a single sub-expression
 
 Each BinOp node has a left child node and a right child node, which can be any of the nodes types themselves (such as a number or another BinOp), depending on the complexity of the expression. Similarly, each FuncCall node has a function name and argument, which tells the interpreter/generator to perform the specified function with the given argument(s).
 
@@ -22,7 +24,7 @@ Example abstract syntax tree (AST) for `4 + 2 * 10 + 3 * (5 + 1)`:
 ### Interpreter
 Once the parser has constructed the tree of nodes, the Interpreter class is used to evaluate the expression. The Interpreter class contains a method called visit, which recursively traverses the tree of nodes and computes the final value of the expression. The visit method performs a different operation depending on the type of node it is currently visiting.
 
-If it encounters a Num node, it simply returns the value of the number. If it encounters a BinOp node, it performs the appropriate arithmetic operation based on the type of operator, and recursively calls visit on the left and right child nodes to compute their values. If it encounters a FuncCall node, it performs the specified function with the given argument(s).
+If it encounters a Num or Var node, it simply returns the value of the number or variable. If it encounters a BinOp node, it performs the appropriate arithmetic operation based on the type of operator, and recursively calls visit on the left and right child nodes to compute their values. If it encounters a FuncCall node, it performs the specified function with the given argument(s). Additionally, if it encounters a UnaryOp node, it performs the specified operation on the sub-expression.
 
 Finally, the interpret method of the Interpreter class is called, which initiates the evaluation of the expression. The interpret method calls the expr method of the parser, which constructs the tree of nodes, and then passes the tree to the visit method of the Interpreter to compute the final result. The result is then returned as the output of the interpret method.
 
@@ -32,9 +34,13 @@ The generator.py file contains a class called CodeGenerator, which generates x86
 
 * visit_Num: This method generates assembly code for a Num node, which represents a number in the AST. The method moves the value of the number into the %rax register.
 
+* visit_Var: This method generates assembly code for a Var node, which represents a variable in the AST. The method copies the value of the variable from the symbol table into the %rax register.
+
 * visit_BinOp: This method generates assembly code for a BinOp node, which represents a binary operation (such as addition or multiplication) in the AST. The method recursively visits the left and right operands of the operation, then performs the operation using the appropriate assembly code and stores the result in the %rax register.
 
 * visit_FuncCall: This method generates assembly code for a FuncCall node, which represents a function call in the AST. The method recursively visits the argument to the function call, then generates assembly code to call the appropriate function (such as sin or cos) and stores the result in the %xmm0 register.
+
+* visit_UnaryOp: This method generates assembly code for a UnaryOp node, which represents a unary operation (such as negation or factorials) in the AST. The method recursively visits the sub-expression of the node, then performs the operation using the appropriate assembly code and stores the result in the %rax register.
 
 The CodeGenerator class also defines a generate_code method, which takes an expression and returns a list of assembly instructions that can be executed by a processor. This method creates an AST from the expression using the parser, then visits the nodes of the AST using the appropriate methods in the CodeGenerator class to generate the corresponding assembly code.
 
