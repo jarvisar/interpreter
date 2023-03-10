@@ -65,7 +65,8 @@ else:
                 parser = Parser(lexer)
                 semantic_analyzer = SemanticAnalyzer()
                 semantic_analyzer.analyze(parser)
-                if text.endswith(";"):
+                action = input("Press 2 to show assembly code, or any other key to interpret result:")
+                if action == "2":
                     generator = CodeGenerator(parser, symbol_table)
                     assembly_code = generator.generate_code()
                     print("== Begin Assembly Code ==")
