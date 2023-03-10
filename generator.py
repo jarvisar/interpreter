@@ -22,7 +22,7 @@ class CodeGenerator:
         self.result.append(f"movq ${node.value}, %rax")
     
     def visit_Var(self, node: Var):
-        self.result.append(f"movq ${self.symbol_table[node.name.value]}, %rax")
+        self.result.append(f"movq ${int(self.symbol_table[node.name.value])}, %rax")
 
     # Binary operators
     def visit_BinOp(self, node: BinOp):
