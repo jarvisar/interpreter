@@ -10,7 +10,7 @@ The input expression is first converted into a token stream by the lexer, which 
 The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of several types of nodes: 
 
 * Num nodes: represent individual numbers in the expression
-* Var nodes: represent variables with a sub-expression as a value
+* Var nodes: represent variables with a sub-expression as the value
 * BinOp nodes: represent binary operations between two sub-expressions
 * FuncCall nodes: represent mathematical functions such as sine, cosine, and tangent 
 * UnaryOp nodes: represent unary operations on a single sub-expression
