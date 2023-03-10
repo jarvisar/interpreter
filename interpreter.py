@@ -23,20 +23,26 @@ class Interpreter:
             else:
                 raise TypeError(f"Invalid node value: {node.value}")
         elif isinstance(node, BinOp):
+            left = self.visit(node.left)
+            right = self.visit(node.right)
+            if isinstance(left, Var):
+                left = self.vars[left.name.value]
+            if isinstance(right, Var):
+                right = self.vars[right.name.value]
             if node.op.type == PLUS:
-                return self.visit(node.left) + self.visit(node.right)
+                return left + right
             elif node.op.type == MINUS:
-                return self.visit(node.left) - self.visit(node.right)
+                return left - right
             elif node.op.type == MULTIPLY:
-                return self.visit(node.left) * self.visit(node.right)
+                return left * right
             elif node.op.type == DIVIDE:
-                return self.visit(node.left) / self.visit(node.right)
+                return left / right
             elif node.op.type == MODULO:
-                return self.visit(node.left) % self.visit(node.right)
+                return left % right
             elif node.op.type == EXPONENTIATION:
-                return self.visit(node.left) ** self.visit(node.right)
+                return left ** right
             elif node.op.type == FLOOR_DIVIDE:
-                return self.visit(node.left) // self.visit(node.right)
+                return left // right
             else:
                 raise ValueError(f"Invalid operator type: {node.op.type}")
         elif isinstance(node, FuncCall):
@@ -60,7 +66,6 @@ class Interpreter:
                 var_name = node.name.value
                 self.vars[var_name] = self.visit(node.value)
                 return self.vars
-                
             else:
                 # return variable value
                 var_name = node.name.value
