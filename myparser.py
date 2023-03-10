@@ -28,6 +28,13 @@ class Parser:
                 self.eat(FACTORIAL)
                 return UnaryOp(op, Num(token))
             return Num(token)
+        if self.current_token.type == VAR:
+            var_node = Var(self.current_token, None)
+            self.eat(VAR)
+            if self.current_token.type == ASSIGN:
+                self.eat(ASSIGN)
+                var_node.value = self.expr()
+            return var_node
         elif token.type == FLOAT:
             self.eat(FLOAT)
             return Num(token)
