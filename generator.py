@@ -4,8 +4,9 @@ from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINU
 
 class CodeGenerator:
 
-    def __init__(self, parser):
+    def __init__(self, parser, vars):
         self.parser = parser
+        self.vars = vars
         self.result = []
         self.counter = 0 # counter for exponentiation
 

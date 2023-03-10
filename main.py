@@ -18,7 +18,7 @@ while True:
     semantic_analyzer.analyze(parser)
     action = input("Press 2 to show assembly code, or any other key to interpret result:")
     if action == "2":
-        generator = CodeGenerator(parser)
+        generator = CodeGenerator(parser, vars)
         assembly_code = generator.generate_code()
         print("== Begin Assembly Code ==")
         print("\n".join(assembly_code))
