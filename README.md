@@ -1,5 +1,5 @@
 # Arithmetic Interpreter & Assembly Code Generator
-An arithmetic interpreter for evaluating mathematical expressions and generating x86-64 assembly code.
+An arithmetic interpreter and specialized compiler for evaluating mathematical expressions and generating x86-64 assembly code.
 
 ### Lexer
 The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, and functions).
@@ -85,6 +85,8 @@ To use the arithmetic interpreter, follow these steps:
 	`$ gcc -shared -o assembly assembly.o -lm -no-pie`
 	
 	`$ ./assembly`
+	
+  <b>Note:</b> The assembly.s file may need to be modified to ensure compatibility with the system architecture or operating system of the computer it is being run on.
      
 ### Known Issues & Limitations
 
@@ -92,4 +94,4 @@ The x86-64 assembly code generator is limited to integers and will round all cal
 
 ## Reflection
 
-Working on this project has been an excellent learning opportunity, allowing me to improve my programming skills and gain a deeper understanding of various concepts in computer science. Creating the lexer and parser helped me better understand how programming languages are parsed and executed, and allowed me to gain a better understanding of how syntax affects the overall structure of a program. Creating the code generator allowed me to dive deeper into assembly language and understand how it interacts with hardware. This project also allowed me to gain experience working with abstract data structures such as syntax trees, and I hope to apply these skills to build more complex software in the future. Overall, this project has been a great way to improve my skills and deepen my understanding of fundemental computer science concepts.
+Working on this project has been an excellent learning opportunity, allowing me to improve my programming skills and gain a deeper understanding of various concepts in computer science. Creating the lexer and parser helped me better understand how programming languages are parsed and executed, and allowed me to gain a better understanding of how syntax affects the overall structure of a program. Creating the code generator allowed me to learn more about assembly language and understand how it interacts with hardware. This project also allowed me to gain experience working with abstract data structures such as syntax trees, and I hope to apply these skills to build more complex software in the future. Overall, this project has been a great way to improve my skills and deepen my understanding of fundemental computer science concepts.
