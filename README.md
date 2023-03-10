@@ -49,7 +49,7 @@ The CodeGenerator class also defines a generate_code method, which takes an expr
 The CodeGenerator outputs a list of x86-64 assembly instructions corresponding to the user's input expression. The included `assembly.s` file contains a set of initial assembly code to print the result of the assembly calculation. To compile and execute it, refer to the instructions below.
 
 ### Features
-Overall, this application provides a basic implementation of an arithmetic interpreter capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, an interpreter to traverse the tree and compute the final value of the expression, and a code generator to traverse the tree and generate assembly code for the given expression.
+Overall, this application provides an implementation of an arithmetic interpreter and compiler capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, an interpreter to traverse the tree and compute the final value of the expression, and a code generator to traverse the tree and generate assembly code for the given expression.
 
 Currently, it supports binary operations such addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
 
