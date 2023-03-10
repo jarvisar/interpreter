@@ -1,14 +1,16 @@
 # Arithmetic Interpreter & Assembly Code Generator
 An arithmetic interpreter and compiler for evaluating mathematical expressions and generating x86-64 assembly code.
 
+This program consists of four main steps:
+
 ### Lexer
 The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, functions, and variables).
 
 ### Parser
-The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of three types of nodes: 
+The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of several types of nodes: 
 
 * Num nodes: represent individual numbers in the expression
-* Var nodes: represent variables with a sub-expression as a value
+* Var nodes: represent variables with a sub-expression as the value
 * BinOp nodes: represent binary operations between two sub-expressions
 * FuncCall nodes: represent mathematical functions such as sine, cosine, and tangent 
 * UnaryOp nodes: represent unary operations on a single sub-expression
@@ -30,7 +32,7 @@ Finally, the interpret method of the Interpreter class is called, which initiate
 
 ### Assembly Code Generator
 
-The generator.py file contains a class called CodeGenerator, which generates x86-64 assembly code from the AST produced by the parser. The CodeGenerator class defines several methods, each of which handles a specific type of AST node:
+The `generator.py` file contains a class called CodeGenerator, which generates x86-64 assembly code from the AST produced by the parser. The CodeGenerator class defines several methods, each of which handles a specific type of AST node:
 
 * visit_Num: This method generates assembly code for a Num node, which represents a number in the AST. The method moves the value of the number into the %rax register.
 
@@ -47,15 +49,15 @@ The CodeGenerator class also defines a generate_code method, which takes an expr
 The CodeGenerator outputs a list of x86-64 assembly instructions corresponding to the user's input expression. The included `assembly.s` file contains a set of initial assembly code to print the result of the assembly calculation. To compile and execute it, refer to the instructions below.
 
 ### Features
-Overall, this application provides a basic implementation of an arithmetic interpreter, which is capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, the use of an interpreter to traverse the tree and compute the final value of the expression, and the use of a code generator to traverse the tree and generate assembly code for the given expression.
+Overall, this application provides an implementation of an arithmetic interpreter and compiler capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, an interpreter to traverse the tree and compute the final value of the expression, and a code generator to traverse the tree and generate assembly code for the given expression.
 
-Currently, it supports binary operations such addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).
+Currently, it supports binary operations such addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%). Unary operations such as negation (-) and factorials (!) are also supported.
 
-It also supports several functions, such as sin, cos, tan, sqrt, log, and exp. Also supports unary operations, such as factorials and negatives with non-numbers. E.g. `-(2 + 3)` outputs `-5`
+It also supports several functions, such as sin, cos, tan, sqrt, log, and exp.
 
-Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
+Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 2` outputs `3.5` and `3 + 4 / 2` outputs `5`.
 
-Users can also define custom variables by assigning them values, e.g. entering `x = 45` and `y = 3 ** 3` and running `x + y` will output `72`. The assembly generator also supports defined variables.
+Users can also define custom variables by assigning them values, e.g. entering `x = 45` and `y = 3 ** 3` and running `x + y` with the interpreter will output `72`. The assembly generator also supports defined variables.
 
 ### How to Use
 
@@ -69,11 +71,11 @@ To use the arithmetic interpreter, follow these steps:
 
 	`cd interpreter`
     
-3. Run the main.py file to start the interpreter:
+3. Run main.py to start the interpreter:
 
 	`python main.py`
     
-4. Once the interpreter is running, you can enter mathematical expressions to evaluate. For example:
+4. After the interpreter is running, enter mathematical expressions to evaluate:
 
 	`>> (2 + 3) * 4`
     
