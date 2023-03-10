@@ -1,6 +1,8 @@
 # Arithmetic Interpreter & Assembly Code Generator
 An arithmetic interpreter and compiler for evaluating mathematical expressions and generating x86-64 assembly code.
 
+This program consists of four main steps:
+
 ### Lexer
 The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, functions, and variables).
 
