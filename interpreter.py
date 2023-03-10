@@ -3,9 +3,9 @@ from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINU
 import math
 
 class Interpreter:
-    def __init__(self, parser, vars):
+    def __init__(self, parser, symbol_table):
         self.parser = parser
-        self.vars = vars
+        self.symbol_table = symbol_table
 
     def visit(self, node):
         if isinstance(node, UnaryOp):
@@ -26,9 +26,9 @@ class Interpreter:
             left = self.visit(node.left)
             right = self.visit(node.right)
             if isinstance(left, Var):
-                left = self.vars[left.name.value]
+                left = self.symbol_table[left.name.value]
             if isinstance(right, Var):
-                right = self.vars[right.name.value]
+                right = self.symbol_table[right.name.value]
             if node.op.type == PLUS:
                 return left + right
             elif node.op.type == MINUS:
@@ -64,13 +64,13 @@ class Interpreter:
             if node.value is not None:
                 # handle variable assignment
                 var_name = node.name.value
-                self.vars[var_name] = self.visit(node.value)
+                self.symbol_table[var_name] = self.visit(node.value)
                 return self.vars
             else:
                 # return variable value
                 var_name = node.name.value
-                if var_name in self.vars:
-                    return self.vars[var_name]
+                if var_name in self.symbol_table:
+                    return self.symbol_table[var_name]
                 else:
                     raise NameError(f"Name '{var_name}' is not defined")
         else:

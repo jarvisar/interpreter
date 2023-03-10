@@ -4,9 +4,9 @@ from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINU
 
 class CodeGenerator:
 
-    def __init__(self, parser, vars):
+    def __init__(self, parser, symbol_table):
         self.parser = parser
-        self.vars = vars
+        self.symbol_table = symbol_table
         self.result = []
         self.counter = 0 # counter for exponentiation
 
@@ -22,7 +22,7 @@ class CodeGenerator:
         self.result.append(f"movq ${node.value}, %rax")
     
     def visit_Var(self, node: Num):
-        self.result.append(f"movq ${self.vars[node.name.value]}, %rax")
+        self.result.append(f"movq ${self.symbol_table[node.name.value]}, %rax")
 
     # Binary operators
     def visit_BinOp(self, node: BinOp):

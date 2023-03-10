@@ -9,16 +9,16 @@ from analyzer import SemanticAnalyzer
 
 # print("Currently supports addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%).")
 # print("Works with integers and decimals and supports parentheses, e.g. '(3 + 4) / 5' outputs 1.4 and '3 + 4 / 5' outputs 3.8.")
-vars = {}
+symbol_table = {}
 
 while True:
     text = input("Enter an arithmetic expression: ")
     if '=' in text:
         # If the input contains an equal sign, skip code generation
-        interpreter = Interpreter(Parser(Lexer(text)), vars)
+        interpreter = Interpreter(Parser(Lexer(text)), symbol_table)
         result = interpreter.interpret()
         if isinstance(result, dict):
-            vars = result
+            symbol_table = result
         else:
             print(f'Result: {result}')
     else:
@@ -29,16 +29,16 @@ while True:
         semantic_analyzer.analyze(parser)
         action = input("Press 2 to show assembly code, or any other key to interpret result:")
         if action == "2":
-            generator = CodeGenerator(parser, vars)
+            generator = CodeGenerator(parser, symbol_table)
             assembly_code = generator.generate_code()
             print("== Begin Assembly Code ==")
             print("\n".join(assembly_code))
             print("== End Assembly Code ==")
         else:
-            interpreter = Interpreter(parser, vars)
+            interpreter = Interpreter(parser, symbol_table)
             result = interpreter.interpret()
             if isinstance(result, dict):
-                vars = result
+                symbol_table = result
             else:
                 print(f'Result: {result}')
 
