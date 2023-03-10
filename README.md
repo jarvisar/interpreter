@@ -103,6 +103,8 @@ To use the arithmetic interpreter, follow these steps:
  	`python main.py -f input.txt`
 	
 	Lines that end with a semicolon will generate assembly code except variable assignments.
+	
+	
      
 ### Known Issues & Limitations
 
