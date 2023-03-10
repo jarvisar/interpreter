@@ -49,6 +49,8 @@ It also supports several functions, such as sin, cos, tan, sqrt, log, and exp. A
 
 Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
 
+Users can also define custom variables by assigning them values, e.g. entering `x = 45` and `y = 3 ** 3` and running `x + y` will output `72`. The assembly generator also supports defined variables.
+
 ### How to Use
 
 To use the arithmetic interpreter, follow these steps:
@@ -91,8 +93,6 @@ To use the arithmetic interpreter, follow these steps:
 ### Known Issues & Limitations
 
 The x86-64 assembly code generator is limited to integers and will round all calculations to the nearest whole number. However, the included interpreter is capable of handling decimals.
-
-Currently adding support for custom variables. At the moment, users can define variables and retrieve values but only perform functions with them, no binary or unary operations. E.g. `>> x = 45`
 
 ## Reflection
 
