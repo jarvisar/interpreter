@@ -77,14 +77,14 @@ To use the arithmetic interpreter, follow these steps:
     
 4. After the interpreter is running, enter mathematical expressions to evaluate:
 
-	`>> (2 + 3) * 4`
+	`>> (2 + 3) * 4
     
-    `20`
+    20
     
     
-    `>> cos(0)`
+    >> cos(0)
     
-    `1.0`
+    1.0`
     
 5. To generate assembly code for a given expression, press 2 after entering the input. The assembly code should be printed to the terminal.
 
