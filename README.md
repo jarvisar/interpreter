@@ -7,7 +7,7 @@ This program consists of four main steps:
 The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, functions, and variables).
 
 ### Parser
-The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of three types of nodes: 
+The token stream is then parsed by the parser, which creates a tree of nodes that represents the expression. The tree is made up of several types of nodes: 
 
 * Num nodes: represent individual numbers in the expression
 * Var nodes: represent variables with a sub-expression as a value
