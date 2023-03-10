@@ -55,7 +55,7 @@ Currently, it supports binary operations such addition (+), subtraction (-), mul
 
 It also supports several functions, such as sin, cos, tan, sqrt, log, and exp.
 
-Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 5` outputs `1.4` and `3 + 4 / 5` outputs `3.8`.
+Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 2` outputs `3.5` and `3 + 4 / 2` outputs `5`.
 
 Users can also define custom variables by assigning them values, e.g. entering `x = 45` and `y = 3 ** 3` and running `x + y` with the interpreter will output `72`. The assembly generator also supports defined variables.
 
