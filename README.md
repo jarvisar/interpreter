@@ -104,7 +104,7 @@ To use the arithmetic interpreter, follow these steps:
 	
 	Lines that end with a semicolon will generate assembly code except variable assignments.
 	
-	
+	<br>
      
 ### Known Issues & Limitations
 
