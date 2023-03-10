@@ -32,7 +32,7 @@ Finally, the interpret method of the Interpreter class is called, which initiate
 
 ### Assembly Code Generator
 
-The generator.py file contains a class called CodeGenerator, which generates x86-64 assembly code from the AST produced by the parser. The CodeGenerator class defines several methods, each of which handles a specific type of AST node:
+The `generator.py` file contains a class called CodeGenerator, which generates x86-64 assembly code from the AST produced by the parser. The CodeGenerator class defines several methods, each of which handles a specific type of AST node:
 
 * visit_Num: This method generates assembly code for a Num node, which represents a number in the AST. The method moves the value of the number into the %rax register.
 
