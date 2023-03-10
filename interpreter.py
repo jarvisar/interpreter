@@ -25,6 +25,7 @@ class Interpreter:
         elif isinstance(node, BinOp):
             left = self.visit(node.left)
             right = self.visit(node.right)
+            print("hi")
             if isinstance(left, Var):
                 left = self.vars[left.name.value]
             if isinstance(right, Var):

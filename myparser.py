@@ -91,22 +91,14 @@ class Parser:
         return node
 
     def expr(self):
-        if self.current_token.type == VAR:
-            var_node = Var(self.current_token, None)
-            self.eat(VAR)
-            if self.current_token.type == ASSIGN:
-                self.eat(ASSIGN)
-                var_node.value = self.expr()
-            return var_node
-        else:
-            node = self.term()
-            while self.current_token.type in (PLUS, MINUS):
-                token = self.current_token
-                if token.type == PLUS:
-                    self.eat(PLUS)
-                elif token.type == MINUS:
-                    self.eat(MINUS)
+        node = self.term()
+        while self.current_token.type in (PLUS, MINUS):
+            token = self.current_token
+            if token.type == PLUS:
+                self.eat(PLUS)
+            elif token.type == MINUS:
+                self.eat(MINUS)
 
-                node = BinOp(left=node, op=token, right=self.term())
+            node = BinOp(left=node, op=token, right=self.term())
 
         return node
