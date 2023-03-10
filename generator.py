@@ -3,9 +3,11 @@ from ast import Num, BinOp, FuncCall, AST, UnaryOp
 from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL
 
 class CodeGenerator:
+
     def __init__(self, parser):
         self.parser = parser
         self.result = []
+        self.counter = 0 # counter for exponentiation
 
     def visit(self, node: AST):
         method_name = f"visit_{type(node).__name__}"
@@ -17,7 +19,8 @@ class CodeGenerator:
 
     def visit_Num(self, node: Num):
         self.result.append(f"movq ${node.value}, %rax")
-
+    
+    
     # Binary operators
     def visit_BinOp(self, node: BinOp):
         self.visit(node.left)
@@ -42,19 +45,21 @@ class CodeGenerator:
             self.result.append("cqto")
             self.result.append("idivq %rbx")
         elif node.op.type == EXPONENTIATION:
-            self.result.append("movq %rax, %rcx")
+            self.counter += 1 # increment the counter
+            exponentiation_label = f".exponentiation_{self.counter}"
+            self.result.append(f"movq %rax, %rcx")
             self.result.append("movq $1, %rax")
             self.result.append("cmpq $0, %rbx")
-            self.result.append("je .exponentiation_done")
-            self.result.append(".exponentiation_loop:")
+            self.result.append(f"je {exponentiation_label}_done")
+            self.result.append(f"{exponentiation_label}_loop:")
             self.result.append("testq $1, %rbx")
-            self.result.append("jz .exponentiation_square")
+            self.result.append(f"jz {exponentiation_label}_square")
             self.result.append("imulq %rcx, %rax")
-            self.result.append(".exponentiation_square:")
+            self.result.append(f"{exponentiation_label}_square:")
             self.result.append("imulq %rcx, %rcx")
             self.result.append("shr $1, %rbx")
-            self.result.append("jnz .exponentiation_loop")
-            self.result.append(".exponentiation_done:")
+            self.result.append(f"jnz {exponentiation_label}_loop")
+            self.result.append(f"{exponentiation_label}_done:")
 
     # Functions
     def visit_FuncCall(self, node: FuncCall):
@@ -89,19 +94,21 @@ class CodeGenerator:
         if node.op.type == MINUS:
             self.visit(node.expr)
             self.result.append("movq $0, %rbx")
-            self.result.append("subq %rax, %rbx")
+            self.result.append("subq %rax, %rbx") # Subtract from 0 if negative
             self.result.append("movq %rbx, %rax")
         elif node.op.type == FACTORIAL:
+            self.counter += 1 # increment the counter
+            factorial_label = f".factorial_{self.counter}"
             self.visit(node.expr)
             self.result.append("movq %rax, %rcx")
             self.result.append("movq $1, %rax")
             self.result.append("cmpq $0, %rcx")
-            self.result.append("je .factorial_done")
-            self.result.append(".factorial_loop:")
+            self.result.append(f"je {factorial_label}_done")
+            self.result.append(f"{factorial_label}_loop:")
             self.result.append("imulq %rcx, %rax")
             self.result.append("decq %rcx")
-            self.result.append("jnz .factorial_loop")
-            self.result.append(".factorial_done:")
+            self.result.append(f"jnz {factorial_label}_loop")
+            self.result.append(f"{factorial_label}_done:")
         
     def generate_code(self) -> List[str]:
         tree = self.parser.expr()
