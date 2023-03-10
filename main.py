@@ -12,37 +12,39 @@ from analyzer import SemanticAnalyzer
 symbol_table = {}
 
 while True:
-    text = input("Enter an arithmetic expression: ").strip()  # Remove leading/trailing whitespace
-    if not text:  # Check if string is empty or consists only of whitespace characters
-        continue 
-    if '=' in text:
-        # If the input contains an equal sign, skip code generation
-        interpreter = Interpreter(Parser(Lexer(text)), symbol_table)
-        result = interpreter.interpret()
-        if isinstance(result, dict):
-            symbol_table = result
-        else:
-            print(f'Result: {result}')
-    else:
-        # Otherwise, proceed with code generation as before
-        lexer = Lexer(text)
-        parser = Parser(lexer)
-        semantic_analyzer = SemanticAnalyzer()
-        semantic_analyzer.analyze(parser)
-        action = input("Press 2 to show assembly code, or any other key to interpret result:")
-        if action == "2":
-            generator = CodeGenerator(parser, symbol_table)
-            assembly_code = generator.generate_code()
-            print("== Begin Assembly Code ==")
-            print("\n".join(assembly_code))
-            print("== End Assembly Code ==")
-        else:
-            interpreter = Interpreter(parser, symbol_table)
+    text = input("Enter an arithmetic expression: ")
+    try:
+        if '=' in text:
+            # If the input contains an equal sign, skip code generation
+            interpreter = Interpreter(Parser(Lexer(text)), symbol_table)
             result = interpreter.interpret()
             if isinstance(result, dict):
                 symbol_table = result
             else:
                 print(f'Result: {result}')
+        else:
+            # Otherwise, proceed with code generation as before
+            lexer = Lexer(text)
+            parser = Parser(lexer)
+            semantic_analyzer = SemanticAnalyzer()
+            semantic_analyzer.analyze(parser)
+            action = input("Press 2 to show assembly code, or any other key to interpret result:")
+            if action == "2":
+                generator = CodeGenerator(parser, symbol_table)
+                assembly_code = generator.generate_code()
+                print("== Begin Assembly Code ==")
+                print("\n".join(assembly_code))
+                print("== End Assembly Code ==")
+            else:
+                interpreter = Interpreter(parser, symbol_table)
+                result = interpreter.interpret()
+                if isinstance(result, dict):
+                    symbol_table = result
+                else:
+                    print(f'Result: {result}')
+    except Exception as e:
+        print(f"Error: {e}")
+
 
 
 
