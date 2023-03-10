@@ -12,7 +12,9 @@ from analyzer import SemanticAnalyzer
 symbol_table = {}
 
 while True:
-    text = input("Enter an arithmetic expression: ")
+    text = input("Enter an arithmetic expression: ").strip()  # Remove leading/trailing whitespace
+    if not text:  # Check if string is empty or consists only of whitespace characters
+        continue 
     if '=' in text:
         # If the input contains an equal sign, skip code generation
         interpreter = Interpreter(Parser(Lexer(text)), symbol_table)
@@ -41,5 +43,6 @@ while True:
                 symbol_table = result
             else:
                 print(f'Result: {result}')
+
 
 
