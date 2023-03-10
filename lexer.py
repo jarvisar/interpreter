@@ -180,6 +180,12 @@ class Lexer:
                 self.skip_whitespace()
                 return Token(ASSIGN, '=')
 
+            # Ignore semicolon
+            if self.current_char == ';':
+                self.advance()
+                self.skip_whitespace()
+                continue
+            
             self.error()
 
         return Token(EOF, None)
