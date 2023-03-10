@@ -97,6 +97,12 @@ To use the arithmetic interpreter, follow these steps:
 	`$ ./assembly`
 	
   <b>Note:</b> The assembly.s file may need to be modified to ensure compatibility with the system architecture or operating system of the computer it is being run on.
+  
+ 7. To run the program with an input text file instead of using command line, use the `-f` flag with an input file as the argument:
+ 
+ 	`python main.py -f input.txt`
+	
+	Lines that end with a semicolon will generate assembly code except variable assignments.
      
 ### Known Issues & Limitations
 
