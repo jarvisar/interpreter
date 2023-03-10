@@ -71,11 +71,11 @@ To use the arithmetic interpreter, follow these steps:
 
 	`cd interpreter`
     
-3. Run the main.py file to start the interpreter:
+3. Run main.py to start the interpreter:
 
 	`python main.py`
     
-4. Once the interpreter is running, you can enter mathematical expressions to evaluate. For example:
+4. After the interpreter is running, enter mathematical expressions to evaluate:
 
 	`>> (2 + 3) * 4`
     
