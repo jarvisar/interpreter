@@ -1,5 +1,5 @@
 from typing import List
-from ast import Num, BinOp, FuncCall, AST, UnaryOp
+from ast import Num, BinOp, FuncCall, AST, UnaryOp, Var
 from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL
 
 class CodeGenerator:
@@ -21,7 +21,7 @@ class CodeGenerator:
     def visit_Num(self, node: Num):
         self.result.append(f"movq ${node.value}, %rax")
     
-    def visit_Var(self, node: Num):
+    def visit_Var(self, node: Var):
         self.result.append(f"movq ${self.symbol_table[node.name.value]}, %rax")
 
     # Binary operators

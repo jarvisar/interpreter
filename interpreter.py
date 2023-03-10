@@ -65,7 +65,7 @@ class Interpreter:
                 # handle variable assignment
                 var_name = node.name.value
                 self.symbol_table[var_name] = self.visit(node.value)
-                return self.vars
+                return self.symbol_table
             else:
                 # return variable value
                 var_name = node.name.value
