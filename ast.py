@@ -27,3 +27,8 @@ class UnaryOp(AST):
     def __init__(self, op, expr):
         self.token = self.op = op
         self.expr = expr
+
+class Var(AST):
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value

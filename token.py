@@ -19,6 +19,9 @@ EXP = 'EXP'
 LPAREN = 'LPAREN'
 RPAREN = 'RPAREN'
 EOF = 'EOF'
+VAR = 'VAR'
+ASSIGN = 'ASSIGN'
+KEYWORDS = 'KEYWORDS'
 
 class Token:
     def __init__(self, type, value):

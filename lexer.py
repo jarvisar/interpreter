@@ -1,4 +1,4 @@
-from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL
+from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL, VAR, ASSIGN, KEYWORDS
 from ast import Num, BinOp, FuncCall, AST, Node, UnaryOp
 
 class Lexer:
@@ -161,6 +161,24 @@ class Lexer:
                 self.advance()
                 self.skip_whitespace()
                 return Token(ID, 'exp')
+
+            # Recognize variables and keywords
+            if self.current_char.isalpha():
+                result = ''
+                while self.current_char is not None and (self.current_char.isalpha() or self.current_char.isdigit()):
+                    result += self.current_char
+                    self.advance()
+                    self.skip_whitespace()
+                    if result in KEYWORDS:
+                        return Token(KEYWORDS[result], result)
+                    else:
+                        return Token(VAR, result)
+
+            # Recognize assignment
+            if self.current_char == '=':
+                self.advance()
+                self.skip_whitespace()
+                return Token(ASSIGN, '=')
 
             self.error()
 

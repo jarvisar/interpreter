@@ -1,5 +1,5 @@
-from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, FACTORIAL
-from ast import Num, BinOp, FuncCall, AST, Node, UnaryOp
+from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, FACTORIAL, VAR, ASSIGN, KEYWORDS
+from ast import Num, BinOp, FuncCall, AST, Node, UnaryOp, Var
 
 class Parser:
     def __init__(self, lexer):
@@ -20,6 +20,7 @@ class Parser:
 
     def factor(self):
         token = self.current_token
+        
         if token.type == INTEGER:
             self.eat(INTEGER)
             if self.current_token.type == FACTORIAL:
@@ -47,7 +48,6 @@ class Parser:
             self.eat(MODULO)
             node = BinOp(left=node, op=token, right=self.factor())
             return node
-            
         elif token.type == ID:
             func_name = self.current_token.value
             self.eat(ID)
@@ -79,21 +79,27 @@ class Parser:
                 node = BinOp(left=node, op=token, right=self.factor())
             elif token.type == FACTORIAL:
                 self.eat(FACTORIAL)
-                print("HI")
                 node = BinOp(left=node, op=token, right=self.factor())
 
         return node
 
     def expr(self):
-        node = self.term()
+        if self.current_token.type == VAR:
+            var_node = Var(self.current_token, None)
+            self.eat(VAR)
+            if self.current_token.type == ASSIGN:
+                self.eat(ASSIGN)
+                var_node.value = self.expr()
+            return var_node
+        else:
+            node = self.term()
+            while self.current_token.type in (PLUS, MINUS):
+                token = self.current_token
+                if token.type == PLUS:
+                    self.eat(PLUS)
+                elif token.type == MINUS:
+                    self.eat(MINUS)
 
-        while self.current_token.type in (PLUS, MINUS):
-            token = self.current_token
-            if token.type == PLUS:
-                self.eat(PLUS)
-            elif token.type == MINUS:
-                self.eat(MINUS)
-
-            node = BinOp(left=node, op=token, right=self.term())
+                node = BinOp(left=node, op=token, right=self.term())
 
         return node

@@ -1,10 +1,11 @@
-from ast import Num, BinOp, FuncCall, AST, Node, UnaryOp
+from ast import Num, BinOp, FuncCall, AST, Node, UnaryOp, Var
 from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL
 import math
 
 class Interpreter:
-    def __init__(self, parser):
+    def __init__(self, parser, vars):
         self.parser = parser
+        self.vars = vars
 
     def visit(self, node):
         if isinstance(node, UnaryOp):
@@ -53,6 +54,20 @@ class Interpreter:
                 return math.exp(self.visit(node.arg))
             else:
                 raise ValueError(f"Invalid function name: {node.func}")
+        elif isinstance(node, Var):
+            if node.value is not None:
+                # handle variable assignment
+                var_name = node.name.value
+                self.vars[var_name] = self.visit(node.value)
+                return self.vars
+                
+            else:
+                # return variable value
+                var_name = node.name.value
+                if var_name in self.vars:
+                    return self.vars[var_name]
+                else:
+                    raise NameError(f"Name '{var_name}' is not defined")
         else:
             raise TypeError("Invalid node type")
 
