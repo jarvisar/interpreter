@@ -169,10 +169,10 @@ class Lexer:
                     result += self.current_char
                     self.advance()
                     self.skip_whitespace()
-                    if result in KEYWORDS:
-                        return Token(KEYWORDS[result], result)
-                    else:
-                        return Token(VAR, result)
+                if result in KEYWORDS:
+                    return Token(KEYWORDS[result], result)
+                else:
+                    return Token(VAR, result)
 
             # Recognize assignment
             if self.current_char == '=':
