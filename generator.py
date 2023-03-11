@@ -19,7 +19,7 @@ class CodeGenerator:
         raise NotImplementedError(f"No visit_{type(node).__name__} method")
 
     def visit_Num(self, node: Num):
-        self.result.append(f"movq ${node.value}, %rax")
+        self.result.append(f"movq ${int(node.value)}, %rax")
     
     def visit_Var(self, node: Var):
         self.result.append(f"movq ${int(self.symbol_table[node.name.value])}, %rax")
