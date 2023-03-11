@@ -117,17 +117,23 @@ if os.path.exists('assembly.s'):
         # Use WSL to run the commands
         command_prefix = ['wsl', 'bash', '-c']
         # Assemble the code
+        print("Assembling code...")
         subprocess.run(command_prefix + ['as -o assembly.o assembly.s --64 -g'])
         # Link the code
+        print("Linking...")
         subprocess.run(command_prefix + ['gcc -shared -o assembly assembly.o -lm -no-pie -g'])
         # Run the executable
+        print("Executing...")
         subprocess.run(command_prefix + ['./assembly'])
     else:
         command_prefix = []
         # Assemble the code
+        print("Assembling code...")
         subprocess.run(command_prefix + ['gcc', '-c', '-o', 'assembly.o', 'assembly.s', '--64'])
         # Link the code
+        print("Linking code...")
         subprocess.run(command_prefix + ['gcc', '-o', 'assembly', 'assembly.o', '-lm', '-no-pie'])
         # Run the executable
+        print("Executing...")
         subprocess.run(command_prefix + ['./assembly'])
     
