@@ -26,8 +26,9 @@ class Lexer:
         if self.current_char == '-':
             result += '-'
             self.advance()
-        while self.current_char is not None and self.current_char.isdigit():
-            result += self.current_char
+        while self.current_char is not None and (self.current_char.isdigit() or self.current_char == ','):
+            if self.current_char != ',':
+                result += self.current_char
             self.advance()
 
         # Check for decimal point
@@ -43,6 +44,7 @@ class Lexer:
             return Token(FLOAT, float(result))
         else:
             return Token(INTEGER, int(result))
+
 
     def peek(self):
         peek_pos = self.pos + 1
@@ -69,9 +71,6 @@ class Lexer:
 
             if self.current_char.isdigit() or (self.current_char == '-' and self.peek().isdigit()):
                 return self.integer()
-
-            if self.current_char == '.':
-                return self.float()
 
             if self.current_char == '/' and self.peek() == '/':
                 return self.floor_divide()
