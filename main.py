@@ -123,7 +123,7 @@ else:
                 parser = Parser(lexer)
                 semantic_analyzer = SemanticAnalyzer()
                 semantic_analyzer.analyze(parser)
-                action = input("Press 1 to execute assembly code, press 2 to show the assembly code, or any other key to interpret result:")
+                action = input("Press 1 to execute assembly code, press 2 to show the assembly code, or any other key to interpret result: ")
                 if action == "1":
                     generator = CodeGenerator(parser, symbol_table)
                     assembly_code = generator.generate_code()
@@ -152,7 +152,7 @@ else:
                         f.write("    movq $0, %rax\n")
                         f.write("    retq\n")
                     runAssembly()
-                if action == "2":
+                elif action == "2":
                     generator = CodeGenerator(parser, symbol_table)
                     assembly_code = generator.generate_code()
                     print("== Begin Assembly Code ==")
