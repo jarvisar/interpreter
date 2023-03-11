@@ -185,8 +185,17 @@ class Lexer:
                 self.advance()
                 self.skip_whitespace()
                 continue
+
+            # Ignore comma
+            if self.current_char == ',':
+                self.advance()
+                self.skip_whitespace()
+                continue
             
-            self.error()
+            if self.current_char == '#':
+                self.advance()
+                self.skip_whitespace()
+                continue
 
         return Token(EOF, None)
 
