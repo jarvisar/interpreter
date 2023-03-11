@@ -4,5 +4,5 @@ y = 9,000 # Can also use commas in numbers
 
 # Add comments using hash symbol
 
-# Lines that end with semicolon generate x86 assembly code
+# Lines that end with semicolon generate and execute x86 assembly code
 x + y ** 2;
