@@ -1,5 +1,5 @@
 # Arithmetic Interpreter & Assembly Code Generator
-JarLang is a custom-built programming language designed for mathematical computations. It features an interpreter, compiler, and code generator for x86-64 assembly code. With JarLang, users can write and execute arithmetic expressions with custom variables and generate assembly code for execution. This repository contains the source code for JarLang and instructions on how to use it.
+JarLang is a custom-built programming language designed for mathematical computations. It features a lexer, parser, semantic analyzer, interpreter, and code generator for x86-64 assembly code. With JarLang, users can write and execute arithmetic expressions with custom variables and generate assembly code for execution. This repository contains the source code for JarLang and instructions on how to use it.
 
 ### Lexer
 The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, functions, and variables).
