@@ -4,6 +4,8 @@ y = 9,000 # Can also use commas in numbers
 
 # Add comments using hash symbol
 
-# Define functions here
+z = x + y
+
 # Add semicolon to final calculation to execute assembly code
-x + y;
+
+sqrt(x) + z;
