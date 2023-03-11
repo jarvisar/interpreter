@@ -63,7 +63,7 @@ Users can also define custom variables by assigning them values, e.g. entering `
 
 ### Requirements
 
-* [Python](https://www.python.org/)
+* [Python 3](https://www.python.org/)
 * [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install) (if using Windows)
 
 ### Running the CLI
