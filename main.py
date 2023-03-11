@@ -46,7 +46,7 @@ def runAssembly():
             print("Executing...")
             subprocess.run(command_prefix + ['./assembly'])
     
-if args.file:
+if args.file: # Load code from file
     with open(args.file, "r") as f:
         for line in f:
             text = line.strip()
@@ -54,7 +54,7 @@ if args.file:
                 continue
             try:
                 if '=' in text:
-                    # If the input contains an equal sign, skip code generation
+                    # If assigning variable, don't generate assembly code
                     interpreter = Interpreter(Parser(Lexer(text)), symbol_table)
                     result = interpreter.interpret()
                     if isinstance(result, dict):
@@ -62,12 +62,12 @@ if args.file:
                     else:
                         print(f'Result: {result}')
                 else:
-                    # Otherwise, proceed with code generation as before
+                    # Otherwise, generate assembly code
                     lexer = Lexer(text)
                     parser = Parser(lexer)
                     semantic_analyzer = SemanticAnalyzer()
                     semantic_analyzer.analyze(parser)
-                    if text.endswith(";"):
+                    if text.endswith(";"): # Run assembly code if line ends with semicolon
                         generator = CodeGenerator(parser, symbol_table)
                         assembly_code = generator.generate_code()
                         with open("assembly.s", "w") as f:
@@ -97,17 +97,17 @@ if args.file:
                     else:
                         interpreter = Interpreter(parser, symbol_table)
                         result = interpreter.interpret()
-                        if isinstance(result, dict):
+                        if isinstance(result, dict): # If result is symbol_table dictionary, update main symbol table
                             symbol_table = result
                         else:
-                            print(f'Result: {result}')
+                            print(f'Result: {result}') # Otherwise, print result of calculation
             except Exception as e:
                 print(f"Error: {e}")
-else:
+else: # Run CLI
     while True:
         text = input("Enter an arithmetic expression: ")
         if not text or text.isspace() or text.startswith("#"):
-                continue
+                continue # Skip empty lines and comments
         try:
             if '=' in text:
                 # If the input contains an equal sign, skip code generation
