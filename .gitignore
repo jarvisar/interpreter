@@ -3,3 +3,5 @@ assembly
 assembly.o
 assembly.s
 test.jlang
+dist
+build

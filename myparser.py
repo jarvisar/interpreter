@@ -1,5 +1,5 @@
-from token import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, FACTORIAL, VAR, ASSIGN, KEYWORDS
-from ast import Num, BinOp, FuncCall, AST, Node, UnaryOp, Var
+from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, FACTORIAL, VAR, ASSIGN, KEYWORDS
+from myast import Num, BinOp, FuncCall, AST, Node, UnaryOp, Var
 
 class Parser:
     def __init__(self, lexer):
