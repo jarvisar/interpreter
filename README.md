@@ -79,12 +79,12 @@ To use the arithmetic interpreter, follow these steps:
     
 4. After the interpreter is running, enter mathematical expressions to evaluate:
 
-	>> (2 + 3) * 4
+	(2 + 3) * 4
     
 	20
     
     
-	>> cos(0)
+	cos(0)
     
  	1.0
     
