@@ -109,7 +109,7 @@ The interpreter can also read expressions from a file and execute them. To do so
 	
 you can execute the expressions in the file with the following command:
 
-    `python main.py -f example.jlang`
+`python main.py -f example.jlang`
 	
 The compiler will execute the final expression's generated assembly code and print out the results. Note that the final expression in the file must end with a semicolon to indicate that assembly code should be generated and executed.
  
