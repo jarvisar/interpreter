@@ -8,6 +8,7 @@ from generator import CodeGenerator
 from analyzer import SemanticAnalyzer
 import os
 
+# Add f flag to use input file
 parser = argparse.ArgumentParser()
 parser.add_argument("-f", "--file", help="input file name")
 args = parser.parse_args()
@@ -22,7 +23,7 @@ def runAssembly():
 
         # Check if running on Windows
         if platform.system() == 'Windows':
-            # Use WSL to run the commands
+            # Use WSL to run the commands if on Windows
             command_prefix = ['wsl', 'bash', '-c']
             # Assemble the code
             print("Assembling code...")
@@ -70,6 +71,7 @@ if args.file:
                         generator = CodeGenerator(parser, symbol_table)
                         assembly_code = generator.generate_code()
                         with open("assembly.s", "w") as f:
+                            # Add assembly code to print result
                             f.write(".section .data\n")
                             f.write("result_fmt: .string \"Result: %ld\\n\"\n")
                             f.write("\n")
@@ -126,6 +128,7 @@ else:
                     generator = CodeGenerator(parser, symbol_table)
                     assembly_code = generator.generate_code()
                     with open("assembly.s", "w") as f:
+                        # Add assembly code to print result
                         f.write(".section .data\n")
                         f.write("result_fmt: .string \"Result: %ld\\n\"\n")
                         f.write("\n")
