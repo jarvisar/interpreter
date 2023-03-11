@@ -17,6 +17,8 @@ if args.file:
     with open(args.file, "r") as f:
         for line in f:
             text = line.strip()
+            if not text or text.isspace():
+                continue
             try:
                 if '=' in text:
                     # If the input contains an equal sign, skip code generation
@@ -50,6 +52,8 @@ if args.file:
 else:
     while True:
         text = input("Enter an arithmetic expression: ")
+        if not text or text.isspace():
+                continue
         try:
             if '=' in text:
                 # If the input contains an equal sign, skip code generation
