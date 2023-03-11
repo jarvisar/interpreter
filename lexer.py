@@ -192,6 +192,7 @@ class Lexer:
                 self.skip_whitespace()
                 continue
             
+            # Ignore comments
             if self.current_char == '#':
                 self.advance()
                 self.skip_whitespace()
