@@ -99,7 +99,7 @@ To use the arithmetic interpreter, follow these steps:
      
 ### Running from a File
 
-The interpreter can also read expressions from a file and execute them. To do so, create a file with a `.jlang` extension and put your expressions in the file, one per line. For example, if you create a file called `example.jlang` with the following contents:
+The interpreter can also read expressions from a file and execute them. To do so, create a file with a `.jlang` extension and enter expressions in the file, one per line. For example, after creating a file called `example.jlang` with the following contents:
 
 	# Define variables here
 	x = 8 
@@ -112,7 +112,7 @@ The interpreter can also read expressions from a file and execute them. To do so
 	# Add semicolon to final calculation to execute assembly code
 	sqrt(x) + z;
 	
-you can execute the expressions in the file with the following command:
+Execute the expressions in the file with the following command:
 
 `python main.py -f example.jlang`
 	
