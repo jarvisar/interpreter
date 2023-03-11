@@ -111,7 +111,7 @@ you can execute the expressions in the file with the following command:
 
 `python main.py -f example.jlang`
 	
-The compiler will execute the final expression's generated assembly code and print out the results. Note that the final expression in the file must end with a semicolon to indicate that assembly code should be generated and executed.
+The compiler will generate and execute the final expression's assembly code and print out the results. Note that the final expression in the file must end with a semicolon to indicate that assembly code should be generated and executed.
  
 ### Known Issues & Limitations
 
