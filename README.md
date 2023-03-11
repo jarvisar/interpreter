@@ -61,6 +61,11 @@ Users can also define custom variables by assigning them values, e.g. entering `
 
 ## How to Use
 
+### Requirements
+
+* [Python](https://www.python.org/)
+* Windows Subsystem for Linux (if using Windows)
+
 ### Running the CLI
 
 To use the arithmetic interpreter, follow these steps:
