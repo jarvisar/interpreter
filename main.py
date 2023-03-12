@@ -45,6 +45,9 @@ def runAssembly():
             # Run the executable
             print("Executing...")
             subprocess.run(command_prefix + ['./assembly'])
+        os.remove('assembly.s')
+        os.remove('assembly.o')
+        os.remove('assembly')
     
 if args.file: # Load code from file
     if args.file.endswith(".jlang"):
