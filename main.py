@@ -47,63 +47,66 @@ def runAssembly():
             subprocess.run(command_prefix + ['./assembly'])
     
 if args.file: # Load code from file
-    with open(args.file, "r") as f:
-        for line in f:
-            text = line.strip()
-            if not text or text.isspace() or text.startswith("#"):
-                continue
-            try:
-                if '=' in text:
-                    # If assigning variable, don't generate assembly code
-                    interpreter = Interpreter(Parser(Lexer(text)), symbol_table)
-                    result = interpreter.interpret()
-                    if isinstance(result, dict):
-                        symbol_table = result
-                    else:
-                        print(f'Result: {result}')
-                else:
-                    # Otherwise, generate assembly code
-                    lexer = Lexer(text)
-                    parser = Parser(lexer)
-                    semantic_analyzer = SemanticAnalyzer()
-                    semantic_analyzer.analyze(parser)
-                    if text.endswith(";"): # Run assembly code if line ends with semicolon
-                        generator = CodeGenerator(parser, symbol_table)
-                        assembly_code = generator.generate_code()
-                        with open("assembly.s", "w") as f:
-                            # Add assembly code to print result
-                            f.write(".section .data\n")
-                            f.write("result_fmt: .string \"Result: %ld\\n\"\n")
-                            f.write("\n")
-                            f.write(".section .text\n")
-                            f.write(".globl main\n")
-                            f.write(".type main, @function\n")
-                            f.write("main:\n")
-                            f.write("    subq $8, %rsp\n")
-                            f.write("    # Calculate expression (paste generated assembly code here)\n")
-                            f.write("\n".join(assembly_code) + "\n")
-                            f.write("    # End of calculation\n")
-                            f.write("\n")
-                            f.write("    # Print the result\n")
-                            f.write("    movq %rax, %rsi\n")
-                            f.write("    movq $result_fmt, %rdi\n")
-                            f.write("    movq $0, %rax\n")
-                            f.write("    call printf\n")
-                            f.write("\n")
-                            f.write("    # Exit\n")
-                            f.write("    addq $8, %rsp # restore stack\n")
-                            f.write("    movq $0, %rax\n")
-                            f.write("    retq\n")
-                    else:
-                        interpreter = Interpreter(parser, symbol_table)
+    if args.file.endswith(".jlang"):
+        with open(args.file, "r") as f:
+            for line in f:
+                text = line.strip()
+                if not text or text.isspace() or text.startswith("#"):
+                    continue
+                try:
+                    if '=' in text:
+                        # If assigning variable, don't generate assembly code
+                        interpreter = Interpreter(Parser(Lexer(text)), symbol_table)
                         result = interpreter.interpret()
-                        if isinstance(result, dict): # If result is symbol_table dictionary, update main symbol table
+                        if isinstance(result, dict):
                             symbol_table = result
                         else:
-                            print(f'Result: {result}') # Otherwise, print result of calculation
-            except Exception as e:
-                print(f"Error: {e}")
-        runAssembly()
+                            print(f'Result: {result}')
+                    else:
+                        # Otherwise, generate assembly code
+                        lexer = Lexer(text)
+                        parser = Parser(lexer)
+                        semantic_analyzer = SemanticAnalyzer()
+                        semantic_analyzer.analyze(parser)
+                        if text.endswith(";"): # Run assembly code if line ends with semicolon
+                            generator = CodeGenerator(parser, symbol_table)
+                            assembly_code = generator.generate_code()
+                            with open("assembly.s", "w") as f:
+                                # Add assembly code to print result
+                                f.write(".section .data\n")
+                                f.write("result_fmt: .string \"Result: %ld\\n\"\n")
+                                f.write("\n")
+                                f.write(".section .text\n")
+                                f.write(".globl main\n")
+                                f.write(".type main, @function\n")
+                                f.write("main:\n")
+                                f.write("    subq $8, %rsp\n")
+                                f.write("    # Calculate expression (paste generated assembly code here)\n")
+                                f.write("\n".join(assembly_code) + "\n")
+                                f.write("    # End of calculation\n")
+                                f.write("\n")
+                                f.write("    # Print the result\n")
+                                f.write("    movq %rax, %rsi\n")
+                                f.write("    movq $result_fmt, %rdi\n")
+                                f.write("    movq $0, %rax\n")
+                                f.write("    call printf\n")
+                                f.write("\n")
+                                f.write("    # Exit\n")
+                                f.write("    addq $8, %rsp # restore stack\n")
+                                f.write("    movq $0, %rax\n")
+                                f.write("    retq\n")
+                        else:
+                            interpreter = Interpreter(parser, symbol_table)
+                            result = interpreter.interpret()
+                            if isinstance(result, dict): # If result is symbol_table dictionary, update main symbol table
+                                symbol_table = result
+                            else:
+                                print(f'Result: {result}') # Otherwise, print result of calculation
+                except Exception as e:
+                    print(f"Error: {e}")
+            runAssembly()
+    else:
+        print("Error: File must be a .jlang file")
 else: # Run CLI
     while True:
         text = input("Enter an arithmetic expression: ")
