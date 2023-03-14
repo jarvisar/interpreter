@@ -38,7 +38,7 @@ def runAssembly():
             command_prefix = []
             # Assemble the code
             print("Assembling code...")
-            subprocess.run(command_prefix + ['gcc', '-c', '-o', 'assembly.o', 'assembly.s', '--64'])
+            subprocess.run(command_prefix + ['gcc', '-c', '-o', 'assembly.o', 'assembly.s'])
             # Link the code
             print("Linking code...")
             subprocess.run(command_prefix + ['gcc', '-o', 'assembly', 'assembly.o', '-lm', '-no-pie'])
