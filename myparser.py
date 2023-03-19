@@ -26,7 +26,13 @@ class Parser:
             if self.current_token.type == FACTORIAL:
                 op = self.current_token
                 self.eat(FACTORIAL)
-                return UnaryOp(op, Num(token))
+                # apply factorial operator repeatedly
+                node = UnaryOp(op, Num(token))
+                while self.current_token.type == FACTORIAL:
+                    op = self.current_token
+                    self.eat(FACTORIAL)
+                    node = UnaryOp(op, node)
+                return node
             return Num(token)
         elif self.current_token.type == VAR:
             var_node = Var(self.current_token, None)
