@@ -64,7 +64,11 @@ class Interpreter:
             if node.value is not None:
                 # handle variable assignment
                 var_name = node.name.value
-                self.symbol_table[var_name] = self.visit(node.value)
+                # prevent chaning pi, e, tau, inf
+                if var_name in ['pi', 'e', 'tau', 'inf']:
+                    raise ValueError(f"Cannot change value of {var_name}")
+                else:
+                    self.symbol_table[var_name] = self.visit(node.value)
                 return self.symbol_table
             else:
                 # return variable value
