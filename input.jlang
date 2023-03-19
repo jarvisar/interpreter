@@ -1,5 +1,5 @@
 # Define variables here
-x = 8 
+x = 16 
 y = 9,000 # Can also use commas in numbers
 
 # Add comments using hash symbol
