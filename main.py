@@ -6,6 +6,7 @@ from lexer import Lexer
 from interpreter import Interpreter
 from generator import CodeGenerator
 from analyzer import SemanticAnalyzer
+import math
 import os
 
 # Add f flag to use input file
@@ -13,7 +14,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-f", "--file", help="input file name")
 args = parser.parse_args()
 
-symbol_table = {}
+symbol_table = {"pi": math.pi, "e": math.e, "tau": math.tau, "inf": math.inf}
 
 def runAssembly():
     # Use the modified Python code to assemble, link, and run the generated code
