@@ -1,6 +1,11 @@
 # Arithmetic Interpreter & Assembly Code Generator
 This project is a custom-built programming language designed for mathematical computations. It features a lexer, parser, semantic analyzer, interpreter, and code generator for x86-64 assembly code. Users can write and execute arithmetic expressions with custom variables and generate assembly code for execution. This repository contains the source code and instructions on how to use it.
 
+
+<p align="center">
+  <img src="https://jarvisar.github.io/assets/img/portfolio/portfolio-details-10.png"/>
+</p>
+
 ### Lexer
 The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, functions, and variables).
 
