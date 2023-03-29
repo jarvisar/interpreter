@@ -5,7 +5,6 @@ This project is a custom-built programming language designed for mathematical co
 <p align="center">
   <img src="https://jarvisar.github.io/assets/img/portfolio/portfolio-details-10.png"/>
 </p>
-
 ### Lexer
 The input expression is first converted into a token stream by the lexer, which identifies the different parts of the expression (such as numbers, operators, functions, and variables).
 
