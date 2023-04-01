@@ -65,7 +65,7 @@ Users can also define custom variables by assigning them values, e.g. entering `
 ## How to Use
 
 <p align="center">
-  <img src="https://jarvisar.github.io/assets/img/portfolio/portfolio-details-10-3.gif"/>
+  <img width="500" src="https://jarvisar.github.io/assets/img/portfolio/portfolio-details-10-3.gif"/>
 </p>
 
 ### Requirements
