@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='jarlang',
+    name='JarLang',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
