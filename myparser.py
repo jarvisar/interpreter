@@ -52,6 +52,16 @@ class Parser:
             self.eat(LPAREN)
             node = self.expr()
             self.eat(RPAREN)
+            # check if there is a factorial operator
+            if self.current_token.type == FACTORIAL:
+                op = self.current_token
+                self.eat(FACTORIAL)
+                # apply factorial operator repeatedly
+                node = UnaryOp(op, node)
+                while self.current_token.type == FACTORIAL:
+                    op = self.current_token
+                    self.eat(FACTORIAL)
+                    node = UnaryOp(op, node)
             return node
         elif token.type == MINUS:
             self.eat(MINUS)
