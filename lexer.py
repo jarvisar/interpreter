@@ -197,6 +197,8 @@ class Lexer:
                 self.skip_whitespace()
                 continue
 
+            self.error()
+
         return Token(EOF, None)
 
 
