@@ -115,6 +115,9 @@ if args.file: # Load code from file
     else:
         print("Error: File must be a .jlang file")
 else: # Run CLI
+    # Add previous answer to symbol table as ans
+    if 'ans' not in symbol_table:
+        symbol_table['ans'] = 0
     while True:
         text = input("Enter an arithmetic expression: ")
         if not text or text.isspace() or text.startswith("#"):
@@ -175,6 +178,8 @@ else: # Run CLI
                 else:
                     interpreter = Interpreter(parser, symbol_table)
                     result = interpreter.interpret()
+                    # Set ans to result
+                    symbol_table['ans'] = result
                     if isinstance(result, dict):
                         symbol_table = result
                     else:
