@@ -1,4 +1,4 @@
-from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, FACTORIAL, VAR, ASSIGN, KEYWORDS
+from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL, VAR, ASSIGN, KEYWORDS, LE, GE, LT, GT, EQ, NE, AND, OR, NOT
 from myast import Num, BinOp, FuncCall, AST, Node, UnaryOp, Var
 
 class Parser:
@@ -87,7 +87,7 @@ class Parser:
 
     def term(self):
         node = self.factor()
-        while self.current_token.type in (MULTIPLY, DIVIDE, FLOOR_DIVIDE, EXPONENTIATION, MODULO):
+        while self.current_token.type in (MULTIPLY, DIVIDE, FLOOR_DIVIDE, EXPONENTIATION, MODULO, LE, GE, LT, GT, EQ, NE, AND, OR, NOT):
             token = self.current_token
             if token.type == MULTIPLY:
                 self.eat(MULTIPLY)
@@ -106,6 +106,33 @@ class Parser:
                 node = BinOp(left=node, op=token, right=self.factor())
             elif token.type == FACTORIAL:
                 self.eat(FACTORIAL)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == LE:
+                self.eat(LE)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == GE:
+                self.eat(GE)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == LT:
+                self.eat(LT)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == GT:
+                self.eat(GT)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == EQ:
+                self.eat(EQ)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == NE:
+                self.eat(NE)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == AND:
+                self.eat(AND)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == OR:
+                self.eat(OR)
+                node = BinOp(left=node, op=token, right=self.factor())
+            elif token.type == NOT:
+                self.eat(NOT)
                 node = BinOp(left=node, op=token, right=self.factor())
 
         return node

@@ -22,6 +22,15 @@ EOF = 'EOF'
 VAR = 'VAR'
 ASSIGN = 'ASSIGN'
 KEYWORDS = 'KEYWORDS'
+LE = 'LE'
+GE = 'GE'
+LT = 'LT'
+GT = 'GT'
+EQ = 'EQ'
+NE = 'NE'
+AND = 'AND'
+OR = 'OR'
+NOT = 'NOT'
 
 class Token:
     def __init__(self, type, value):

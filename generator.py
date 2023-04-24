@@ -1,6 +1,6 @@
 from typing import List
 from myast import Num, BinOp, FuncCall, AST, UnaryOp, Var
-from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL
+from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL, VAR, ASSIGN, KEYWORDS, LE, GE, LT, GT, EQ, NE, AND, OR, NOT
 
 class CodeGenerator:
 
@@ -63,6 +63,36 @@ class CodeGenerator:
             self.result.append("shr $1, %rbx")
             self.result.append(f"jnz {exponentiation_label}_loop")
             self.result.append(f"{exponentiation_label}_done:")
+        elif node.op.type == LE:
+            self.result.append("cmpq %rbx, %rax")
+            self.result.append("setle %al")
+            self.result.append("movzbq %al, %rax")
+        elif node.op.type == GE:
+            self.result.append("cmpq %rbx, %rax")
+            self.result.append("setge %al")
+            self.result.append("movzbq %al, %rax")
+        elif node.op.type == LT:
+            self.result.append("cmpq %rbx, %rax")
+            self.result.append("setl %al")
+            self.result.append("movzbq %al, %rax")
+        elif node.op.type == GT:
+            self.result.append("cmpq %rbx, %rax")
+            self.result.append("setg %al")
+            self.result.append("movzbq %al, %rax")
+        elif node.op.type == EQ:
+            self.result.append("cmpq %rbx, %rax")
+            self.result.append("sete %al")
+            self.result.append("movzbq %al, %rax")
+        elif node.op.type == NE:
+            self.result.append("cmpq %rbx, %rax")
+            self.result.append("setne %al")
+            self.result.append("movzbq %al, %rax")
+        elif node.op.type == AND:
+            self.result.append("andq %rbx, %rax")
+        elif node.op.type == OR:
+            self.result.append("orq %rbx, %rax")
+        elif node.op.type == NOT:
+            self.result.append("xorq $1, %rax")
 
     # Functions
     def visit_FuncCall(self, node: FuncCall):

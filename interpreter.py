@@ -1,5 +1,5 @@
 from myast import Num, BinOp, FuncCall, AST, Node, UnaryOp, Var
-from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL
+from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL, VAR, ASSIGN, KEYWORDS, LE, GE, LT, GT, EQ, NE, AND, OR, NOT
 import math
 
 class Interpreter:
@@ -43,6 +43,24 @@ class Interpreter:
                 return left ** right
             elif node.op.type == FLOOR_DIVIDE:
                 return left // right
+            elif node.op.type == LE:
+                return left <= right
+            elif node.op.type == GE:
+                return left >= right
+            elif node.op.type == LT:
+                return left < right
+            elif node.op.type == GT:
+                return left > right
+            elif node.op.type == EQ:
+                return left == right
+            elif node.op.type == NE:
+                return left != right
+            elif node.op.type == AND:
+                return left and right
+            elif node.op.type == OR:
+                return left or right
+            elif node.op.type == NOT:
+                return not right
             else:
                 raise ValueError(f"Invalid operator type: {node.op.type}")
         elif isinstance(node, FuncCall):

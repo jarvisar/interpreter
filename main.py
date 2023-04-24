@@ -1,5 +1,5 @@
 import argparse
-from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP
+from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL, VAR, ASSIGN, KEYWORDS, LE, GE, LT, GT, EQ, NE, AND, OR, NOT
 from myast import Num, BinOp, FuncCall, AST, Node, UnaryOp
 from myparser import Parser
 from lexer import Lexer
@@ -122,7 +122,8 @@ else: # Run CLI
         try:
             if text == "exit":
                 break
-            elif '=' in text:
+            # CHeck if input is a variable assignment, but not comparison such as >= (i.e. contains an equal sign)
+            if '=' in text and not any([op in text for op in ['==', '!=', '<=', '>=', '<', '>']]):
                 # If the input contains an equal sign, skip code generation
                 interpreter = Interpreter(Parser(Lexer(text)), symbol_table)
                 result = interpreter.interpret()

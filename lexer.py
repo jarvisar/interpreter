@@ -1,4 +1,4 @@
-from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL, VAR, ASSIGN, KEYWORDS
+from tokens import Token, INTEGER, FLOAT, FUNCTION, ID, DECIMAL_POINT, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, EXPONENTIATION, FLOOR_DIVIDE, LPAREN, RPAREN, EOF, LOG, EXP, FACTORIAL, VAR, ASSIGN, KEYWORDS, LE, GE, LT, GT, EQ, NE, AND, OR, NOT
 from myast import Num, BinOp, FuncCall, AST, Node, UnaryOp
 
 class Lexer:
@@ -178,6 +178,59 @@ class Lexer:
                 self.advance()
                 self.skip_whitespace()
                 return Token(ASSIGN, '=')
+
+            # Recognize comparison operators
+            if self.current_char == '<' and self.peek() == '=':
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(LE, '<=')
+
+            if self.current_char == '>' and self.peek() == '=':
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(GE, '>=')
+
+            if self.current_char == '<':
+                self.advance()
+                self.skip_whitespace()
+                return Token(LT, '<')
+
+            if self.current_char == '>':
+                self.advance()
+                self.skip_whitespace()
+                return Token(GT, '>')
+
+            if self.current_char == '=' and self.peek() == '=':
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(EQ, '==')
+
+            if self.current_char == '!' and self.peek() == '=':
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(NE, '!=')
+
+            # Recognize logical operators
+            if self.current_char == '&' and self.peek() == '&':
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(AND, '&&')
+
+            if self.current_char == '|' and self.peek() == '|':
+                self.advance()
+                self.advance()
+                self.skip_whitespace()
+                return Token(OR, '||')
+
+            if self.current_char == '!':
+                self.advance()
+                self.skip_whitespace()
+                return Token(NOT, '!')
 
             # Ignore semicolon
             if self.current_char == ';':
