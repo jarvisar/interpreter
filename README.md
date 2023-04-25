@@ -1,5 +1,5 @@
-# Arithmetic Interpreter & Assembly Code Generator
-This project is a custom-built programming language designed for mathematical computations. It features a lexer, parser, semantic analyzer, interpreter, and code generator for x86-64 assembly code. Users can write and execute arithmetic expressions with custom variables and generate assembly code for execution. This repository contains the source code and instructions on how to use it.
+# Interpreter & Custom Programming Language
+This project is a custom-built programming language developed to gain more experience in software design and development. It features a lexer, parser, semantic analyzer, interpreter, and code generator for x86-64 assembly code. Users can write and execute code using the included interpreter or Assembly code generator, both of which output the same result. This repository contains the source code and instructions on how to use it.
 
 <br>
 <p align="center">
@@ -15,7 +15,7 @@ The token stream is then parsed by the parser, which creates a tree of nodes tha
 * Num nodes: represent individual numbers in the expression
 * Var nodes: represent variables with a sub-expression as the value
 * BinOp nodes: represent binary operations between two sub-expressions
-* FuncCall nodes: represent mathematical functions such as sine, cosine, and tangent 
+* FuncCall nodes: represent functions such as sine, cosine, and tangent 
 * UnaryOp nodes: represent unary operations on a single sub-expression
 
 Each BinOp node has a left child node and a right child node, which can be any of the nodes types themselves (such as a number or another BinOp), depending on the complexity of the expression. Similarly, each FuncCall node has a function name and argument, which tells the interpreter/generator to perform the specified function with the given argument(s).
@@ -29,7 +29,7 @@ Example abstract syntax tree (AST) for `4 + 2 * 10 + 3 * (5 + 1)`:
 ### Interpreter
 Once the parser has constructed the tree of nodes, the Interpreter class is used to evaluate the expression. The Interpreter class contains a method called visit, which recursively traverses the tree of nodes and computes the final value of the expression. The visit method performs a different operation depending on the type of node it is currently visiting.
 
-If it encounters a Num or Var node, it simply returns the value of the number or variable. If it encounters a BinOp node, it performs the appropriate arithmetic operation based on the type of operator, and recursively calls visit on the left and right child nodes to compute their values. If it encounters a FuncCall node, it performs the specified function with the given argument(s). Additionally, if it encounters a UnaryOp node, it performs the specified operation on the sub-expression.
+If it encounters a Num or Var node, it simply returns the value of the number or variable. If it encounters a BinOp node, it performs the appropriate arithmetic operation based on the type of operator, and recursively calls visit on the left and right child nodes to compute their values. Similarly, if it encounters a UnaryOp node, it performs the specified operation on the sub-expression. If it encounters a FuncCall node, it performs the specified function with the given argument(s). 
 
 Finally, the interpret method of the Interpreter class is called, which initiates the evaluation of the expression. The interpret method calls the expr method of the parser, which constructs the tree of nodes, and then passes the tree to the visit method of the Interpreter to compute the final result. The result is then returned as the output of the interpret method.
 
@@ -52,13 +52,17 @@ The CodeGenerator class also defines a generate_code method, which takes an expr
 The CodeGenerator outputs a list of x86-64 assembly instructions corresponding to the user's input expression. The included `assembly.s` file contains a set of initial assembly code to print the result of the assembly calculation. To compile and execute it, refer to the instructions below.
 
 ### Features
-Overall, this application provides an implementation of an arithmetic interpreter and compiler capable of evaluating and generating x86-64 assembly code for simple mathematical expressions. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, an interpreter to traverse the tree and compute the final value of the expression, and a code generator to traverse the tree and generate assembly code for the given expression.
+Overall, this application provides an implementation of an interpreter and code generator capable of evaluating and generating x86-64 assembly code for user code. It demonstrates the use of a lexer and parser to break down the input expression into tokens and construct a tree of nodes that represents the expression, an interpreter to traverse the tree and compute the final value of the expression, and a code generator to traverse the tree and generate Assembly code for the given expression.
 
-Currently, it supports binary operations such addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%). Unary operations such as negation (-) and factorials (!) are also supported.
+Currently, it supports arithmetic binary operations such addition (+), subtraction (-), multiplication (*), division (/), exponents (**), floor division (//), and modulus (%). Unary operations such as negation (-) and factorials (!) are also supported.
 
-It also supports several functions, such as sin, cos, tan, sqrt, log, and exp.
+Logical and comparison operators are also supported, such as and (&&), or (||), not (!), less than or equal to (<=), greater than or equal to (>=), less than (<), greater than (>), equivalent (==), and not equal (!=). 
+
+It also supports several mathematical functions, such as sin, cos, tan, sqrt, log, and exp.
 
 Works with integers, decimals, and negative numbers. Also supports parentheses, e.g. `(3 + 4) / 2` outputs `3.5` and `3 + 4 / 2` outputs `5`. 
+
+###### Note: Assembly generator currently only supports integers
 
 Users can also define custom variables by assigning them values, e.g. entering `x = 45` and `y = 3 ** 3` and running `x + y` with the interpreter will output `72`. The assembly generator also supports defined variables. The symbol table defines several math constants as variables such as pi, Euler's number (e), tau, and infinity (inf) by default.
 
