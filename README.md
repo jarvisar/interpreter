@@ -133,7 +133,3 @@ The compiler will generate and execute the final expression's assembly code and 
 ### Known Issues & Limitations
 
 The x86-64 assembly code generator is limited to integers and will round all calculations to the nearest whole number. However, the included interpreter is capable of handling decimals.
-
-## Reflection
-
-Working on this project has been an excellent learning opportunity, allowing me to improve my programming skills and gain a deeper understanding of various concepts in computer science. Creating the lexer and parser helped me better understand how programming languages are parsed and executed, and allowed me to gain a better understanding of how syntax affects the overall structure of a program. Creating the code generator allowed me to learn more about assembly language and understand how it interacts with hardware. This project also allowed me to gain experience working with compiler construction and abstract data structures such as syntax trees, and I hope to apply these skills to build more complex software in the future. Overall, this project has been a great way to improve my skills and deepen my understanding of fundemental computer science concepts.
