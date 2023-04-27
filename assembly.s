@@ -46,6 +46,7 @@ main:
     setg %al
     movzbq %al, %rax
     # End of calculation
+    # Example code should output 0, since 24 > 25 is false
 
     # Print the result
     movq %rax, %rsi
