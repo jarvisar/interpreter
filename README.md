@@ -23,7 +23,7 @@ Each BinOp node has a left child node and a right child node, which can be any o
 Example abstract syntax tree (AST) for `4 + 2 * 10 + 3 * (5 + 1)`:
 
 <p align="center">
-  <img src="https://keleshev.com/abstract-syntax-tree-an-example-in-c/ast.svg"/>
+  <img width=50 src="https://keleshev.com/abstract-syntax-tree-an-example-in-c/ast.svg"/>
 </p>
 
 ### Interpreter
