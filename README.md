@@ -23,7 +23,7 @@ Each BinOp node has a left child node and a right child node, which can be any o
 Example abstract syntax tree (AST) for `4 + 2 * 10 + 3 * (5 + 1)`:
 
 <p align="center">
-  <img width=50 src="https://keleshev.com/abstract-syntax-tree-an-example-in-c/ast.svg"/>
+  <img src="https://keleshev.com/abstract-syntax-tree-an-example-in-c/ast.svg"/>
 </p>
 
 ### Interpreter
@@ -133,3 +133,9 @@ The compiler will generate and execute the final expression's assembly code and 
 ### Known Issues & Limitations
 
 The x86-64 assembly code generator is limited to integers and will round all calculations to the nearest whole number. However, the included interpreter is capable of handling decimals.
+
+### Other Examples
+
+<p align="center">
+  <img width="650" src="https://jarvisar.github.io/assets/img/portfolio/portfolio-details-10-4.gif"/>
+</p>
