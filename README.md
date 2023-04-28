@@ -136,6 +136,5 @@ The x86-64 assembly code generator is limited to integers and will round all cal
 
 ### Other Examples
 
-<p align="center">
-  <img width="650" src="https://jarvisar.github.io/assets/img/portfolio/portfolio-details-10-4.gif"/>
-</p>
+
+ <img width="650" src="https://jarvisar.github.io/assets/img/portfolio/portfolio-details-10-4.gif"/>
