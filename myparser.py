@@ -26,7 +26,7 @@ class Parser:
             if self.current_token.type == FACTORIAL:
                 op = self.current_token
                 self.eat(FACTORIAL)
-                # apply factorial operator repeatedly
+                # apply factorial operator repeatedly 
                 node = UnaryOp(op, Num(token))
                 while self.current_token.type == FACTORIAL:
                     op = self.current_token
