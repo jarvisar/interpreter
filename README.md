@@ -1,4 +1,4 @@
-# Interpreter & Custom Programming Language
+# JarLang: Interpreter & Custom Programming Language
 This project is a custom-built programming language developed to gain more experience in software design and development. It features a lexer, parser, semantic analyzer, interpreter, and code generator for x86-64 assembly code. Users can write and execute code using the included interpreter or Assembly code generator, both of which output the same result. This repository contains the source code and instructions on how to use it.
 
 <br>
